@@ -7,16 +7,19 @@
   
   <title>We&#39;re here to put a dent in the universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="YasinYao的博客">
-<meta property="og:type" content="website">
+  <meta name="description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
+<meta property="og:type" content="article">
 <meta property="og:title" content="We&#39;re here to put a dent in the universe">
-<meta property="og:url" content="https://github.com/index.html">
+<meta property="og:url" content="https://github.com/2019/01/17/HashMap的实现原理/index.html">
 <meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
-<meta property="og:description" content="YasinYao的博客">
+<meta property="og:description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg">
+<meta property="og:updated_time" content="2019-01-17T07:59:25.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="We&#39;re here to put a dent in the universe">
-<meta name="twitter:description" content="YasinYao的博客">
+<meta name="twitter:description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
+<meta name="twitter:image" content="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg">
   
     <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
   
@@ -67,9 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-HashMap的实现原理" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-HashMap的实现原理" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/17/HashMap的实现原理/" class="article-date">
   <time datetime="2019-01-17T07:59:25.071Z" itemprop="datePublished">2019-01-17</time>
@@ -170,142 +171,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Android/View的事件体系" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/17/Android/View的事件体系/" class="article-date">
-  <time datetime="2019-01-17T07:55:55.290Z" itemprop="datePublished">2019-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="View-的事件体系"><a href="#View-的事件体系" class="headerlink" title="View 的事件体系"></a>View 的事件体系</h2><h3 id="1-View的基础知识"><a href="#1-View的基础知识" class="headerlink" title="1.View的基础知识"></a>1.View的基础知识</h3><ul>
-<li>View是所有控件的基类</li>
-<li>View由四个顶点决定,top,left,right,bottom</li>
-<li>x,y View左上角的坐标 </li>
-<li>translationX,translationY是View左上角相对于父容器的偏移量默认是0</li>
-<li>x = left + translationX</li>
-<li>y = top + translationY</li>
-<li><p>MotionEvent  在手指接触屏幕后所产生的一系列事件中 典型的事件有如下几种:</p>
-<ul>
-<li>ACTION_DOWN—手指刚接触屏幕;</li>
-<li>ACTION_MOVE—手指在屏幕上移动;</li>
-<li><p>ACTION_UP—手机从屏幕上松开的一瞬间.</p>
-<p>通过MotionEvent对象我们可以得到点击事件发生的x和y坐标</p>
-</li>
-<li><p>getX/getY返回的是相对于当前View左上角的x和y坐标</p>
-</li>
-<li>getRawX/getRawY 返回的是相对于屏幕左上角的x和y坐标</li>
-</ul>
-</li>
-<li><p>TouchSlop</p>
-<ul>
-<li>系统能识别的被认为是滑动的最小距离.</li>
-<li>获取这个常量:ViewConfiguration.get(getContext()).getScaledTouchSlop().</li>
-</ul>
-</li>
-<li><p>VelocityTracker</p>
-<ul>
-<li>速度追踪,用于追踪手指在滑动过程中的速度,包括水平和竖直速度.</li>
-<li>VelocityTracker vt = VelocityTracker.obtain();</li>
-<li>vt.addMovement(event);</li>
-<li>vt.computeCurrentVelocity(1000);</li>
-<li>int xV= (int)vt.getXVelocity();</li>
-<li>int yV = (int)vt.getYVelcity();</li>
-<li>vt.clear();</li>
-<li>vt.recycle();</li>
-</ul>
-</li>
-<li>GestureDetector<ul>
-<li>手势检测,用于辅助检测用户的单击,滑动,长按,双击等行为.<h3 id="2-View的滑动"><a href="#2-View的滑动" class="headerlink" title="2. View的滑动"></a>2. View的滑动</h3>View滑动的常见实现方式</li>
-</ul>
-</li>
-<li>通过View本身提供的scrollTo/scrollBy方法</li>
-<li>通过动画给View施加平移效果来实现滑动</li>
-<li>通过改变View的LayoutParams 是的View重新布局而实现滑动</li>
-<li></li>
-</ul>
-<h3 id="3-View分发机制"><a href="#3-View分发机制" class="headerlink" title="3.View分发机制"></a>3.View分发机制</h3><p> 实质上就是MotionEvent的事件分发机制。即当MotionEvent产生一个事件以后，系统需要把事件传递给一个具体的View的这样一个过程。他主要包括三个方法：dispatchTouchEvent onInterceptTouchEvent onTouchEvent.</p>
-<h4 id="public-boolean-dispatchTouchEvent-MotionEvent-e"><a href="#public-boolean-dispatchTouchEvent-MotionEvent-e" class="headerlink" title="- public boolean dispatchTouchEvent(MotionEvent e)"></a>- public boolean dispatchTouchEvent(MotionEvent e)</h4><p>用来进行事件 经过该View的事件，一定会调用这个方法。返回结果受onIntercepterTouchEvent 和onTouchEvent影响。返回值表示是否消费事件。</p>
-<h4 id="public-boolean-onInterceptTouchEvent-MotionEvent-e"><a href="#public-boolean-onInterceptTouchEvent-MotionEvent-e" class="headerlink" title="- public boolean onInterceptTouchEvent(MotionEvent e)"></a>- public boolean onInterceptTouchEvent(MotionEvent e)</h4><p>在上述方法内部，判断是否拦截事件 同一个事件只会运行一次 返回结果表示是否拦截事件 </p>
-<h4 id="public-boolean-onTouchEvent-MotionEvent-e"><a href="#public-boolean-onTouchEvent-MotionEvent-e" class="headerlink" title="- public boolean onTouchEvent(MotionEvent e)"></a>- public boolean onTouchEvent(MotionEvent e)</h4><p>在diapatchTouchEvent方法内部 用来处理点击事件 表示是否消耗该事件  同一事件序列只会执行一次</p>
-<h4 id="ViewGroup事件分发过程："><a href="#ViewGroup事件分发过程：" class="headerlink" title="ViewGroup事件分发过程："></a>ViewGroup事件分发过程：</h4><p>对于一个Viewgroup来说，接收到事件以后首先会调用diapatchTouchEvent 如果返回值是true 也就是说onInterceptTouchEvent返回true则表示自己消费这个事件 那么就会调用onTouchEvent方法；如果onIntercepterTouchEvent返回值是false，表示自己不处理该事件通过child.dispatchTouchEvent发送事件给子布局，如此反复 知道最后被处理。</p>
-<h4 id="View的事件优先级"><a href="#View的事件优先级" class="headerlink" title="View的事件优先级"></a>View的事件优先级</h4><p>当一个View设置了OnTouchListener以后 事件会先执行OnTouchListener的onTouch方法，如果onTouch返回为true 表示OntouchListener消费了事件 就不会传递到OntouchEvent；如果返回为false，才会传递到OntouchEvent，如果OntouchEvent返回为true，这OntouchEvent消费事件，后续额onClicklister就不会接收到事件，click方法就不会被调用；如果OntouchEvent返回为false 才会执行到click方法。 所以view的监听优先级 OnTouchListener &gt; OnTouchEvent &gt; OnClickListener</p>
-<p>事件分发方法的执行顺序 dispatchTouchEvent-&gt;onIntercepteTouchEvent-&gt;OnTouchListener(onTouch)-&gt;onTouchEvent-&gt;onClickListener(click)</p>
+  
+    <a href="/2019/01/17/Android/View的事件体系/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/Android/View的事件体系/" data-id="cjr0brctp000285to1zd4h6b5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/17/hello-world/" class="article-date">
-  <time datetime="2019-01-17T05:45:25.066Z" itemprop="datePublished">2019-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><h4 id="Local-Test"><a href="#Local-Test" class="headerlink" title="Local Test"></a>Local Test</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate #生成</span><br><span class="line">hexo server #打开服务</span><br></pre></td></tr></table></figure>
-<p>or</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g #生成 启动本地服务，进行文章预览调试</span><br></pre></td></tr></table></figure>
-<h4 id="Deploy-Step"><a href="#Deploy-Step" class="headerlink" title="Deploy Step"></a>Deploy Step</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate #生成</span><br><span class="line">hexo deploy #部署</span><br></pre></td></tr></table></figure>
-<p>or<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p>
-<h3 id="Add-New-MD-File"><a href="#Add-New-MD-File" class="headerlink" title="Add New MD File"></a>Add New MD File</h3><p>add file in <code>..\source\_posts</code></p>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/hello-world/" data-id="cjr0brcss000085tojmxc36xk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
