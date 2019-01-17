@@ -5,19 +5,20 @@
   
 
   
-  <title>We&#39;re here to put a dent in the universe</title>
+  <title>View 的事件体系 | We&#39;re here to put a dent in the universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
+<meta name="keywords" content="android,view">
 <meta property="og:type" content="article">
-<meta property="og:title" content="We&#39;re here to put a dent in the universe">
+<meta property="og:title" content="View 的事件体系">
 <meta property="og:url" content="https://github.com/2019/01/17/HashMap的实现原理/index.html">
 <meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
 <meta property="og:description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg">
-<meta property="og:updated_time" content="2019-01-17T07:59:25.315Z">
+<meta property="og:updated_time" content="2019-01-17T08:16:59.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="We&#39;re here to put a dent in the universe">
+<meta name="twitter:title" content="View 的事件体系">
 <meta name="twitter:description" content="HashMap的实现原理1.HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。  2.HashMap的数据结构在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是">
 <meta name="twitter:image" content="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg">
   
@@ -73,12 +74,26 @@
         <section id="main"><article id="post-HashMap的实现原理" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/17/HashMap的实现原理/" class="article-date">
-  <time datetime="2019-01-17T07:59:25.071Z" itemprop="datePublished">2019-01-17</time>
+  <time datetime="2019-01-17T08:07:36.000Z" itemprop="datePublished">2019-01-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      View 的事件体系
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -165,16 +180,18 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/HashMap的实现原理/" data-id="cjr0c4thq00059xtow7ie67x7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/2019/01/17/HashMap的实现原理/" data-id="cjr0cdlee0005bmtoly73bt61" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-view/">android,view</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2019/01/17/View的事件体系/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/01/17/Test-md/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -199,13 +216,20 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li></ul>
+    </div>
+  </div>
+
 
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-view/">android view</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-view/">android,view</a></li></ul>
     </div>
   </div>
 
@@ -215,7 +239,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/android-view/" style="font-size: 10px;">android view</a>
+      <a href="/tags/android-view/" style="font-size: 10px;">android,view</a>
     </div>
   </div>
 
@@ -237,15 +261,15 @@
       <ul>
         
           <li>
+            <a href="/2019/01/17/View的事件体系/">View 的事件体系</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/17/Test-md/">Test.md</a>
           </li>
         
           <li>
-            <a href="/2019/01/17/View的事件体系/">Test.md</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/17/HashMap的实现原理/">(no title)</a>
+            <a href="/2019/01/17/HashMap的实现原理/">View 的事件体系</a>
           </li>
         
           <li>
