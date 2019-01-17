@@ -95,7 +95,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/Test-md/" data-id="cjr0cq8x80000datouljul1j0" class="article-share-link">Share</a>
+      <a data-url="https://github.com/2019/01/17/Test-md/" data-id="cjr0cs0gs0000djto18zfk43g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,10 +188,66 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/View的事件体系/" data-id="cjr0cq8xi0002dato6v7x95lo" class="article-share-link">Share</a>
+      <a data-url="https://github.com/2019/01/17/View的事件体系/" data-id="cjr0cs0gz0001djtok8xk52b8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java_lang_IllegalStateException" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/17/java_lang_IllegalStateException/" class="article-date">
+  <time datetime="2019-01-17T08:07:36.000Z" itemprop="datePublished">2019-01-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/17/java_lang_IllegalStateException/">java.lang.RuntimeException异常分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="java-lang-RuntimeException"><a href="#java-lang-RuntimeException" class="headerlink" title="java.lang.RuntimeException"></a>java.lang.RuntimeException</h2><h4 id="今天在bugly意外发现一个非法状态的异常"><a href="#今天在bugly意外发现一个非法状态的异常" class="headerlink" title="今天在bugly意外发现一个非法状态的异常"></a>今天在bugly意外发现一个非法状态的异常</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.RuntimeException:Unable to destroy activity &#123;com.xxx.xxx/com.xxx.xxx.mvp.orderinfo.ui.OrderInfoActivity&#125;: java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState</span><br></pre></td></tr></table></figure>
+<p>他的意思是 这个动作不能在onSaveInstanceState之后进行操作<br>定位到代码的具体位置是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void hideProgress() &#123;</span><br><span class="line">    if (progressDialog != null) &#123;</span><br><span class="line">        progressDialog.dismiss();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>是上面代码中的progressDialog.dismiss()方法有问题（这是一个DialogFragment）</p>
+<p>也就是系统不允许dialog关闭在onSaveInstanceState之后<br>查了一些资料得到一些信息</p>
+<h3 id="java-lang-IllegalStateException异常产生的原因及解决办法"><a href="#java-lang-IllegalStateException异常产生的原因及解决办法" class="headerlink" title="java.lang.IllegalStateException异常产生的原因及解决办法"></a>java.lang.IllegalStateException异常产生的原因及解决办法</h3><h4 id="错误类型大致为以下几种："><a href="#错误类型大致为以下几种：" class="headerlink" title="错误类型大致为以下几种："></a>错误类型大致为以下几种：</h4><ul>
+<li>java.lang.IllegalStateException：Cannot   forward   a   response   that   is   already   committed </li>
+<li>IllegalStateException：response already commited </li>
+<li>IllegalStateException：getOutputStream() has already been called for this request</li>
+</ul>
+<hr>
+<p>IllegalStateException: Can not perform this action after onSaveInstanceState：</p>
+<p>== 解决办法==：onSaveInstanceState方法是在该Activity即将被销毁前调用，来保存Activity数据的，如果在保存玩状态后</p>
+<h2 id="再给它销毁就会出错。解决办法就是把dismiss（）方法替换成-dismissAllowingStateLoss"><a href="#再给它销毁就会出错。解决办法就是把dismiss（）方法替换成-dismissAllowingStateLoss" class="headerlink" title="再给它销毁就会出错。解决办法就是把dismiss（）方法替换成 dismissAllowingStateLoss()"></a>再给它销毁就会出错。解决办法就是把dismiss（）方法替换成 dismissAllowingStateLoss()</h2><h4 id="错误原因："><a href="#错误原因：" class="headerlink" title="错误原因："></a>错误原因：</h4><p>  该异常表示，当前对客户端的响应已经结束，不能在响应已经结束（或说消亡）后再向客户端（实际上是缓冲区）输出任何内容。<br>  Object is no longer valid to operate on. Was it deleted by another thread?<br>  该异常表示，realmObject对象在其他线程已被删除，在这个线程中使用的时候抛出的异常。</p>
+<h4 id="补充另一种异常情况："><a href="#补充另一种异常情况：" class="headerlink" title="补充另一种异常情况："></a>补充另一种异常情况：</h4><p>这里的异常是：<br>java.lang.IllegalStateException<br>Can’t change tag of fragment d{e183845 #0 d{e183845}}: was d{e183845} now d{e183845 #0 d{e183845}}<br>经查，在显示fragment的代码中使用了：<br>fragment.show(getSupportFragmentManager, fragment.toString());<br>而这里是因为两次toString()结果不同，导致不同的tag指向的是同一个fragment。<br>获取fragment的tag的正确方法应该是使用其提供的fragment.getTag()方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2019/01/17/java_lang_IllegalStateException/" data-id="cjr0cs0h70005djtoutgx6m6a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
 
     </footer>
   </div>
@@ -309,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/HashMap的实现原理/" data-id="cjr0cq8y80009datoczlvpt7g" class="article-share-link">Share</a>
+      <a data-url="https://github.com/2019/01/17/HashMap的实现原理/" data-id="cjr0cs0ht000gdjto1ogsbk3a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashmap/">hashmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -365,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/2019/01/17/hello-world/" data-id="cjr0cq8xf0001datoicnv1y9m" class="article-share-link">Share</a>
+      <a data-url="https://github.com/2019/01/17/hello-world/" data-id="cjr0cs0h20002djtodgf3qxx2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -395,7 +451,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashmap/">hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashmap/">hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li></ul>
     </div>
   </div>
 
@@ -405,7 +461,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/view/" style="font-size: 10px;">view</a>
+      <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/view/" style="font-size: 10px;">view</a>
     </div>
   </div>
 
@@ -432,6 +488,10 @@
         
           <li>
             <a href="/2019/01/17/View的事件体系/">View 的事件体系</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">java.lang.RuntimeException异常分析</a>
           </li>
         
           <li>
