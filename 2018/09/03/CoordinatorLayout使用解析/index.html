@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CoordinatorLayout使用解析 | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说CoordinatorLayout使用">
+<meta name="keywords" content="Android,CoordinatorLayout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoordinatorLayout使用解析">
+<meta property="og:url" content="https://github.com/2018/09/03/CoordinatorLayout使用解析/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说CoordinatorLayout使用">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1018039-920fa0d9d86fa68b.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:updated_time" content="2019-01-24T10:08:24.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CoordinatorLayout使用解析">
+<meta name="twitter:description" content="本文主要说CoordinatorLayout使用">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1018039-920fa0d9d86fa68b.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CoordinatorLayout使用解析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/03/CoordinatorLayout使用解析/" class="article-date">
+  <time datetime="2018-09-03T08:07:36.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CoordinatorLayout使用解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说CoordinatorLayout使用<br><a id="more"></a></p>
+<h1 id="CoordinatorLayout使用解析"><a href="#CoordinatorLayout使用解析" class="headerlink" title="CoordinatorLayout使用解析"></a>CoordinatorLayout使用解析</h1><h2 id="一-CoordinatorLayout介绍"><a href="#一-CoordinatorLayout介绍" class="headerlink" title="一. CoordinatorLayout介绍"></a>一. CoordinatorLayout介绍</h2><h3 id="1-CoordinatorLayout是一个“加强版”FrameLayout，"><a href="#1-CoordinatorLayout是一个“加强版”FrameLayout，" class="headerlink" title="1.　CoordinatorLayout是一个“加强版”FrameLayout，"></a>1.　CoordinatorLayout是一个“加强版”FrameLayout，</h3><p>它主要有两个用途：</p>
+<ol>
+<li>用作应用的顶层布局管理器，也就是作为用户界面中所有UI控件的容器</li>
+<li>用作相互之间距有特定交互行为的UI控件的容器<br>通过为CoordinatorLayout的子View指定Behavior，就可以实现它们之间的交互行为。<br>Behavior可以用来实现一系列的交互行为和布局变化，比如说侧滑菜单、可滑动删除的UI元素，以及跟随着其他UI控件移动的按钮等。<h4 id="2-文字不够形象，-直接来欣赏一下facebook的效果"><a href="#2-文字不够形象，-直接来欣赏一下facebook的效果" class="headerlink" title="2.文字不够形象， 直接来欣赏一下facebook的效果"></a>2.文字不够形象， 直接来欣赏一下facebook的效果</h4><img src="https://upload-images.jianshu.io/upload_images/1018039-920fa0d9d86fa68b.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="image"><h4 id="3-CoordinatorLayout的使用"><a href="#3-CoordinatorLayout的使用" class="headerlink" title="3. CoordinatorLayout的使用"></a>3. CoordinatorLayout的使用</h4>使用CoordinatorLayout需要在Gradle加入Support Design Library：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.android.support:appcompat-v7:26.1.0&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="二-AppBarLayout-CollapsingToolbarLayout的使用"><a href="#二-AppBarLayout-CollapsingToolbarLayout的使用" class="headerlink" title="二.AppBarLayout, CollapsingToolbarLayout的使用"></a>二.AppBarLayout, CollapsingToolbarLayout的使用</h2><h3 id="1-AppBarLayout-CollapsingToolbarLayout是为了配合CoordinatorLayout使用而简单实现相互关系的控件"><a href="#1-AppBarLayout-CollapsingToolbarLayout是为了配合CoordinatorLayout使用而简单实现相互关系的控件" class="headerlink" title="1.AppBarLayout,CollapsingToolbarLayout是为了配合CoordinatorLayout使用而简单实现相互关系的控件"></a>1.AppBarLayout,CollapsingToolbarLayout是为了配合CoordinatorLayout使用而简单实现相互关系的控件</h3><h4 id="2-AppBarLayout-官方文档"><a href="#2-AppBarLayout-官方文档" class="headerlink" title="2.AppBarLayout 官方文档"></a>2.AppBarLayout <a href="https://developer.android.google.cn/reference/android/support/design/widget/AppBarLayout" target="_blank" rel="noopener">官方文档</a></h4><h5 id="1-AppBarLayout-介绍："><a href="#1-AppBarLayout-介绍：" class="headerlink" title="1). AppBarLayout 介绍："></a>1). AppBarLayout 介绍：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 实现了material designs 滑动手势</span><br><span class="line">- AppBarLayout的子View应该通过&#123;setScrollFlags(int)&#125;或者相关的布局xml属性&#123;app：layout_scrollFlags&#125;提供他们想要的滚动行为。</span><br><span class="line">- 最好作为CoordinatorLayou的直接子View使用</span><br><span class="line">- 要拥有一个可滚动的兄弟View并且通过为可滚动的兄弟View设置ScrollingViewBehavior实例来实现绑定。</span><br></pre></td></tr></table></figure>
+<h5 id="2-AppBarLayout滑动区域-查看"><a href="#2-AppBarLayout滑动区域-查看" class="headerlink" title="2).AppBarLayout滑动区域  查看"></a>2).AppBarLayout滑动区域  <a href="https://material.io/guidelines/patterns/scrolling-techniques.html" target="_blank" rel="noopener">查看</a></h5><p>当设计滚动行为时，App bar包含构成滚动结构的四个主要区域（称为块）：</p>
+<ul>
+<li>Status bar</li>
+<li>Tool bar</li>
+<li>Tab bar/search bar</li>
+<li>Flexible space: 用来容纳图像或者扩展app bar的期望宽高比<h5 id="3-滑动类型"><a href="#3-滑动类型" class="headerlink" title="3) 滑动类型"></a>3) 滑动类型</h5>AppBarLayout里面的View都是通过设置app:layout_scrollFlags属性控制滑动，Google提供了5种滑动表现类型，分别是<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- scroll：表示向下滚动的时候，设置了这个属性的View会被滚出屏幕范围，直到消失</span><br><span class="line">- enterAlways：表示向上滚动的时候，设置了这个属性的View会随着滚动手势逐渐出现，直到恢复原来设置的位置(需搭配scroll使用)</span><br><span class="line"></span><br><span class="line">- enterAlwaysCollapsed：是enterAlways的附加选项，一般跟enterAlways一起使用，它是指，View在往下“出现”的时候，首先是enterAlways效果，当View的高度达到最小高度时，View就暂时不去往下滚动，直到ScrollView滑动到顶部不再滑动时，View再继续往下滑动，直到滑到View的顶部结束。</span><br><span class="line"></span><br><span class="line">- exitUntilCollapsed：值设为exitUntilCollapsed的View，当这个View要往上逐渐“消逝”时，会一直往上滑动，直到剩下的的高度达到它的最小高度后，再响应ScrollView的内部滑动事件(需搭配scroll使用)</span><br><span class="line">- snap 表示在滑动过程中如果停止滑动，则头部会就近折叠（要么恢复原状，要么折叠成一个Toolbar或者不显示）(需搭配scroll使用)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="4-重要的监听方法"><a href="#4-重要的监听方法" class="headerlink" title="4)重要的监听方法"></a>4)重要的监听方法</h5><p>addOnOffsetChangedListener()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) &#123;</span><br><span class="line">          // TODO</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-CollapsingToolbarLayout-官方文档"><a href="#3-CollapsingToolbarLayout-官方文档" class="headerlink" title="3.CollapsingToolbarLayout 官方文档"></a>3.CollapsingToolbarLayout <a href="https://developer.android.google.cn/reference/android/support/design/widget/CollapsingToolbarLayout" target="_blank" rel="noopener">官方文档</a></h3><h5 id="1-CollapsingToolbarLayout-介绍："><a href="#1-CollapsingToolbarLayout-介绍：" class="headerlink" title="1.)CollapsingToolbarLayout 介绍："></a>1.)CollapsingToolbarLayout 介绍：</h5><p>CollapsingToolbarLayout是实现一个可以折叠的Toolbar，作为AppbarLayout的直接子View使用，CollapsingToolbarLayout控件提供了一下功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 折叠标题：当标题栏较大的时候，在布局完全显示的情况下可以显示标题栏，但是标题栏折叠、变小或者布局滚动出屏幕的时候，可以通过setTitle(CharSequence)设置标题显示，通过设置collapsedTextAppearance和expandedTextAppearance属性可以调整标题栏的外观。</span><br><span class="line"></span><br><span class="line">- 内容遮罩：通过 setContentScrim(Drawable)更改当滚动到临界点的时候显示或者隐藏</span><br><span class="line"></span><br><span class="line">- 状态栏遮罩：可以通过setStatusBarScrim(Drawable)设置遮罩在滚动到临界点之后是显示还是隐藏，必须要在5.0以后设置了fitSystemWindows属性才可以使用</span><br><span class="line"></span><br><span class="line">- 视差滚动子视图：子视图可以在这个视差范围内滚动，See COLLAPSE_MODE_PARALLAX and setParallaxMultiplier(float).</span><br><span class="line"></span><br><span class="line">- 寄托子视图：子视图可以选择在全局范围内被固定，当实现一个折叠的时候，允许Toolbar被固定在合适的位置，详细见COLLAPSE_MODE_PIN</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-折叠塌陷的属性collapseMode"><a href="#2-折叠塌陷的属性collapseMode" class="headerlink" title="2) 折叠塌陷的属性collapseMode"></a>2) 折叠塌陷的属性collapseMode</h5><p>app:layout_collapseMode=”pin”属性：这个属性是设置折叠的模式，Android提供有两个值，分别是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- pin：设置这个值，当CollapsingToolbarLayout完全折叠之后，View还会显示在屏幕上</span><br><span class="line"></span><br><span class="line">- parallax：设置这个值，在内容滚动时，CollapsingToolbarLayout中的View（比如我们这里的ImageView)也会同时滚动，实现视差滚动效果，通常和layout_collapseParallaxMultiplier(设置视差因子)搭配使用。</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>app:layout_collapseParallaxMultiplier=”0.7”属性：设置视差滚动因子，值得范围是0~1.</p>
+</li>
+<li><p>视差滚动因子数值越大，视觉差越大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 如果这里的值为0，则在头部折叠的过程中，ImageView的顶部在慢慢隐藏，底部不动</span><br><span class="line">- 如果这里的值为1，ImageView的顶部不懂，底部慢慢隐藏，</span><br><span class="line">- 如果这里的取值为0～1之间，则在折叠的过程中，ImageView的顶部和底部都会隐藏，但是头部和底部隐藏的快慢是不一样的，具体速度和视觉乘数有关</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>简单来说 0~1代表上下方向折叠的快慢 0上部折叠速度快 1下部折叠速度快</p>
+<h2 id="三-Behavior"><a href="#三-Behavior" class="headerlink" title="三.Behavior"></a>三.Behavior</h2><h3 id="1-Behavior介绍"><a href="#1-Behavior介绍" class="headerlink" title="1.Behavior介绍"></a>1.Behavior介绍</h3><h5 id="1-作用于CoordinatorLayout的子View的交互行为插件。"><a href="#1-作用于CoordinatorLayout的子View的交互行为插件。" class="headerlink" title="1.作用于CoordinatorLayout的子View的交互行为插件。"></a>1.作用于CoordinatorLayout的子View的交互行为插件。</h5><p>一个Behavior 实现了用户的一个或者多个交互行为，它们可能包括拖拽、滑动、快滑或者其他一些手势。</p>
+<h5 id="2-Behavior-是一个顶层抽象类，其他的一些具体行为的Behavior-都是继承自这个类。"><a href="#2-Behavior-是一个顶层抽象类，其他的一些具体行为的Behavior-都是继承自这个类。" class="headerlink" title="2. Behavior 是一个顶层抽象类，其他的一些具体行为的Behavior 都是继承自这个类。"></a>2. Behavior 是一个顶层抽象类，其他的一些具体行为的Behavior 都是继承自这个类。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static abstract class Behavior&lt;V extends View&gt; &#123;</span><br><span class="line"></span><br><span class="line">        public Behavior() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public Behavior(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">       //省略了若干方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中有一个泛型，它的作用是指定要使用这个Behavior的View的类型，可以是Button、TextView等等。</p>
+<h5 id="3-自定义Behavior可以选择重写以下的几个重要方法"><a href="#3-自定义Behavior可以选择重写以下的几个重要方法" class="headerlink" title="3.自定义Behavior可以选择重写以下的几个重要方法:"></a>3.自定义Behavior可以选择重写以下的几个重要方法:</h5><p>-</p>
+<pre><code>- **layoutDependsOn()**：确定使用Behavior的View要依赖的View的类型
+- **onDependentViewChanged()**：当被依赖的View状态改变时调用
+- **onDependentViewRemoved()**：当被依赖的View移除时调用
+- **onStartNestedScroll()**：嵌套滑动开始（ACTION_DOWN），确定Behavior是否要监听此次事件
+- **onNestedScrollAccepted()** :  onStartNestedScroll返回true才会触发这个方法，接受滚动处理后回调，可以在这个方法里做一些准备工作，如一些状态的重置等。
+- **onStopNestedScroll()**：嵌套滑动结束（ACTION_UP或ACTION_CANCEL）
+- **onNestedPreScroll()**：嵌套滑动进行中，要监听的子 View将要滑动，滑动事件即将被消费（但最终被谁消费，可以通过代码控制）
+- **onNestedScroll()**：嵌套滑动进行中，要监听的子 View的滑动事件已经被消费
+- **onNestedFling()**：要监听的子 View在快速滑动中
+- **onNestedPreFling()**：要监听的子View即将快速滑动
+- **onLayoutChild** 确定使用Behavior的View位置
+</code></pre><h3 id="2-绑定Behavior的三种方式"><a href="#2-绑定Behavior的三种方式" class="headerlink" title="2.绑定Behavior的三种方式"></a>2.绑定Behavior的三种方式</h3><p>Behavior无法独立完成工作，必须与实际调用的CoordinatorLayout子视图相绑定。具体有三种方式：通过代码绑定、在XML中绑定或者通过注释实现自动绑定。</p>
+<h5 id="1-通过代码绑定Behavior"><a href="#1-通过代码绑定Behavior" class="headerlink" title="1. 通过代码绑定Behavior"></a>1. 通过代码绑定Behavior</h5><p>如果将Behavior当作绑定到CoordinatorLayout中每个视图的附加数据，那么发现Behavior实际上是存储在各个视图的LayoutParams中也就不足为奇了（之前有关于布局的博文）。也是因此，Behavior需要绑定到CoordinatorLayout的直接子项中，因为只有那些子项会包含LayoutParams的特定Behavior子类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TitleBehavior titleBehavior = new TitleBehavior();</span><br><span class="line">CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) yourView.getLayoutParams();</span><br><span class="line">params.setBehavior(titleBehavior);</span><br></pre></td></tr></table></figure>
+<h5 id="2-app-layout-behavior布局属性"><a href="#2-app-layout-behavior布局属性" class="headerlink" title="2. app:layout_behavior布局属性"></a>2. app:layout_behavior布局属性</h5><p>在布局中设置，值为自定义 Behavior类的名字字符串（包含路径）</p>
+<p>有两种写法，包含包名的全路径和以”.”开头的省略项目包名的路径:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">app:layout_behavior=&quot;com.yasin.coordinatorlayoutdemo.TitleBehavior&quot;</span><br><span class="line">app:layout_behavior=&quot;.TitleBehavior&quot;</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-CoordinatorLayout-DefaultBehavior类注解"><a href="#3-CoordinatorLayout-DefaultBehavior类注解" class="headerlink" title="3. @CoordinatorLayout.DefaultBehavior类注解"></a>3. @CoordinatorLayout.DefaultBehavior类注解</h5><p>在需要使用 Behavior的控件源码定义中添加该注解，然后通过反射机制获取。系统的 AppBarLayout、 FloatingActionButton都采用了这种方式，所以无需在布局中重复设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@CoordinatorLayout.DefaultBehavior(TitleBehavior.class)</span><br><span class="line">public class TitleLayout extends FrameLayout &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Behavior实现View间交互的原理"><a href="#3-Behavior实现View间交互的原理" class="headerlink" title="3.Behavior实现View间交互的原理"></a>3.Behavior实现View间交互的原理</h3><p>behavior像是view的一个属性，其实它是view的LayoutParam的一个属性，就像宽高一样。当然不是任何一个view的LayoutParam都有这个属性的，只有LayoutParam为android.support.design.widget.CoordinatorLayout.LayoutParams才有这个属性.</p>
+<p>所以，就是只有CoordinatorLayout的子view的LayoutParam可以设置behavior。</p>
+<ul>
+<li>我们可以在CoordinatorLayout.LayoutParams中找到Behavior属性.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static class LayoutParams extends ViewGroup.MarginLayoutParams &#123;</span><br><span class="line">        Behavior mBehavior;</span><br><span class="line">        boolean mBehaviorResolved = false;</span><br><span class="line">        ...</span><br><span class="line">        final Rect mLastChildRect = new Rect();</span><br><span class="line">        &#125;</span><br><span class="line"> ```       </span><br><span class="line">       </span><br><span class="line">##### 1.Behavior初始化过程</span><br><span class="line"> 1. xml方式:app:layout_behavior=”com.yasin.coordinatorlayoutdemo.TitleBehavior”</span><br><span class="line"></span><br><span class="line"> infate的时候，会根据xml去构造LayoutParams，所以我们可以在CoordinatorLayout.LayoutParams看到behavior的初始化过程</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>LayoutParams(Context context, AttributeSet attrs) {<br>    super(context, attrs);</p>
+<pre><code>final TypedArray a = context.obtainStyledAttributes(attrs,
+        R.styleable.CoordinatorLayout_LayoutParams);
+...
+mBehaviorResolved = a.hasValue(
+        R.styleable.CoordinatorLayout_LayoutParams_layout_behavior);
+if (mBehaviorResolved) {
+    mBehavior = parseBehavior(context, attrs, a.getString(
+            R.styleable.CoordinatorLayout_LayoutParams_layout_behavior));
+}
+
+a.recycle();
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2.注解方式:@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Behavior.class)</span><br><span class="line"></span><br><span class="line">在CoordinatorLayout的onMeasure的时候会调用prepareChildren，进而调用getResolvedLayoutParams，在getResolvedLayoutParams里会把注解里的默认Behavior赋值给mBehavior,主要代码如下:</span><br></pre></td></tr></table></figure></p>
+<p>LayoutParams getResolvedLayoutParams(View child) {<br>        final LayoutParams result = (LayoutParams) child.getLayoutParams();<br>        //如果xml内写了behavior，此时result.mBehaviorResolved就为true，不会进去<br>        if (!result.mBehaviorResolved) {<br>            Class&lt;?&gt; childClass = child.getClass();<br>            DefaultBehavior defaultBehavior = null;<br>            while (childClass != null &amp;&amp;<br>                    (defaultBehavior = childClass.getAnnotation(DefaultBehavior.class)) == null) {<br>                childClass = childClass.getSuperclass();<br>            }<br>            if (defaultBehavior != null) {<br>                try {<br>                    result.setBehavior(defaultBehavior.value().newInstance());<br>                } catch (Exception e) {<br>                    Log.e(TAG, “Default behavior class “ + defaultBehavior.value().getName() +<br>                            “ could not be instantiated. Did you forget a default constructor?”, e);<br>                }<br>            }<br>            result.mBehaviorResolved = true;<br>        }<br>        return result;<br>    }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 2.Behavior是如何发挥作用的</span><br><span class="line">measure和layout是Android绘制视图的关键组件，因此Behavior只有在onMeasureChild()和onLayoutChild()回调前拦截父视图的measure和layout，才能达到预计的效果。</span><br><span class="line"></span><br><span class="line">我们再来看看onMeasure的代码，和Behavior相关的主要看prepareChildren和ensurePreDrawListener两个方法</span><br></pre></td></tr></table></figure></p>
+<p>@Override<br>    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {<br>        prepareChildren();<br>        ensurePreDrawListener();<br>        。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**先看  preareChildren()**</span><br></pre></td></tr></table></figure></p>
+<p> private void prepareChildren() {<br>         //清空mDependencySortedChildren<br>        mDependencySortedChildren.clear();<br>        for (int i = 0, count = getChildCount(); i &lt; count; i++) {<br>            final View child = getChildAt(i);</p>
+<pre><code>        final LayoutParams lp = getResolvedLayoutParams(child);
+        lp.findAnchorView(this, child);
+        //加入child
+        mDependencySortedChildren.add(child);
+    }
+      // Finally add the sorted graph list to our list
+    mDependencySortedChildren.addAll(mChildDag.getSortedList());
+    // 我们还需要反转结果，因为我们希望列表的开头包含没有依赖项的视图，然后在此之后依赖视图。
+    Collections.reverse(mDependencySortedChildren);
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">prepareChildren内主要是搞出来一个mDependencySortedChildren,根据依赖关系对child进行排序。先把mDependencySortedChildren clear，然后遍历子view，全部加入到mDependencySortedChildren内，最后对mDependencySortedChildren进行排序</span><br><span class="line"></span><br><span class="line">排序这块没看懂.看了翻译和别的文档大概意思是:被依赖的view放前面，依赖的view放后面.  比如我们fab依赖于snackbar，那么snackbar必然放在fab的前边。这么排序有什么用？其实是提高一点效率，后文会说的。</span><br><span class="line"></span><br><span class="line">**次看ensurePreDrawListener()**</span><br></pre></td></tr></table></figure>
+<p>void ensurePreDrawListener() {<br>         //判断是否存在依赖关系<br>        boolean hasDependencies = false;<br>        final int childCount = getChildCount();<br>        for (int i = 0; i &lt; childCount; i++) {<br>            final View child = getChildAt(i);<br>            if (hasDependencies(child)) {<br>                hasDependencies = true;<br>                break;<br>            }<br>        }</p>
+<pre><code>    if (hasDependencies != mNeedsPreDrawListener) {
+        if (hasDependencies) {
+            //加入PreDrawListener
+            addPreDrawListener();
+        } else {
+            removePreDrawListener();
+        }
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在prepareChildren确定mDependencySortedChildren之后，会执行ensurePreDrawListener，在这里写判断下CoordinatorLayout的子view是否存在依赖关系，如果存在的话就hasDependencies为true，后边会加入OnPreDrawListener,也就是监听依赖View的布局变化</span><br><span class="line">就是在重绘之前，会调用OnPreDrawListener的onPreDraw方法。再在onPreDraw里面调用了onChildViewsChanged。</span><br><span class="line"></span><br><span class="line">**再看onChildViewsChanged()**</span><br></pre></td></tr></table></figure>
+<p>final void onChildViewsChanged(@DispatchChangeEvent final int type) {<br>                ……..<br>        final int childCount = mDependencySortedChildren.size();<br>        for (int i = 0; i &lt; childCount; i++) {<br>        ….<br>            // Update any behavior-dependent views for the change<br>            for (int j = i + 1; j &lt; childCount; j++) {<br>                final View checkChild = mDependencySortedChildren.get(j);<br>                final LayoutParams checkLp = (LayoutParams) checkChild.getLayoutParams();<br>                final Behavior b = checkLp.getBehavior();</p>
+<pre><code>            if (b != null &amp;&amp; b.layoutDependsOn(this, checkChild, child)) {
+                if (type == EVENT_PRE_DRAW &amp;&amp; checkLp.getChangedAfterNestedScroll()) {
+                    // If this is from a pre-draw and we have already been changed
+                    // from a nested scroll, skip the dispatch and reset the flag
+                    checkLp.resetChangedAfterNestedScroll();
+                    continue;
+                }
+
+                final boolean handled;
+                switch (type) {
+                    case EVENT_VIEW_REMOVED:
+                        // EVENT_VIEW_REMOVED means that we need to dispatch
+                        // onDependentViewRemoved() instead
+                        b.onDependentViewRemoved(this, checkChild, child);
+                        handled = true;
+                        break;
+                    default:
+                        // Otherwise we dispatch onDependentViewChanged()
+                        handled = b.onDependentViewChanged(this, checkChild, child);
+                        break;
+                }
+        }
+.......
+
+
+}
+</code></pre><p><code>`</code></p>
+<p>显然从这里就开始触发View的交互了 </p>
+<p>onDependentViewRemoved()和onDependentViewChanged()方法</p>
+<h2 id="四-自定义Behavior"><a href="#四-自定义Behavior" class="headerlink" title="四.自定义Behavior"></a>四.自定义Behavior</h2><p>通常自定义Behavior分为两种情况：</p>
+<ul>
+<li><h4 id="1-通过监听一个View的状态，如位置、大小的变化，来改变其他View的行为，这种只需要重写2个方法就可以了，分别是layoutDependsOn-和onDependentViewChanged-layoutDependsOn方法判断是指定依赖的View时，返回true-然后在onDependentViewChanged-里，被依赖的View做需要的行为动作。"><a href="#1-通过监听一个View的状态，如位置、大小的变化，来改变其他View的行为，这种只需要重写2个方法就可以了，分别是layoutDependsOn-和onDependentViewChanged-layoutDependsOn方法判断是指定依赖的View时，返回true-然后在onDependentViewChanged-里，被依赖的View做需要的行为动作。" class="headerlink" title="1.通过监听一个View的状态，如位置、大小的变化，来改变其他View的行为，这种只需要重写2个方法就可以了，分别是layoutDependsOn 和onDependentViewChanged, layoutDependsOn方法判断是指定依赖的View时，返回true,然后在onDependentViewChanged 里，被依赖的View做需要的行为动作。"></a>1.通过监听一个View的状态，如位置、大小的变化，来改变其他View的行为，这种只需要重写2个方法就可以了，分别是layoutDependsOn 和onDependentViewChanged, layoutDependsOn方法判断是指定依赖的View时，返回true,然后在onDependentViewChanged 里，被依赖的View做需要的行为动作。</h4></li>
+</ul>
+<ul>
+<li><h4 id="2-是重写onStartNestedScroll、onNestedPreScroll、onNestedScroll等一系列方法-可以实现比较复杂的方法"><a href="#2-是重写onStartNestedScroll、onNestedPreScroll、onNestedScroll等一系列方法-可以实现比较复杂的方法" class="headerlink" title="2.是重写onStartNestedScroll、onNestedPreScroll、onNestedScroll等一系列方法.可以实现比较复杂的方法"></a>2.是重写onStartNestedScroll、onNestedPreScroll、onNestedScroll等一系列方法.可以实现比较复杂的方法</h4></li>
+<li><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2></li>
+</ul>
+<p>Android 详细分析AppBarLayout的五种ScrollFlags<a href="https://www.jianshu.com/p/7caa5f4f49bd" target="_blank" rel="noopener">链接</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2018/09/03/CoordinatorLayout使用解析/" data-id="cjraig4av0035kstoie2szvf4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/06/APP 线上bug处理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          APP线上bug处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/10/ React Native 入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React Native 入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

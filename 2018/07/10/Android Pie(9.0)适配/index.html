@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android Pie(9.0)适配 | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说Android Pie(9.0)的适配">
+<meta name="keywords" content="Android,Android 9.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Pie(9.0)适配">
+<meta property="og:url" content="https://github.com/2018/07/10/Android Pie(9.0)适配/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说Android Pie(9.0)的适配">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4974296-ef49c349154110d8.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4974296-af6d22c4cdd76f47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-24T10:04:44.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Pie(9.0)适配">
+<meta name="twitter:description" content="本文主要说Android Pie(9.0)的适配">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4974296-ef49c349154110d8.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android Pie(9.0)适配" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/10/Android Pie(9.0)适配/" class="article-date">
+  <time datetime="2018-07-10T08:07:36.000Z" itemprop="datePublished">2018-07-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android Pie(9.0)适配
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说Android Pie(9.0)的适配<br><a id="more"></a></p>
+<h1 id="Android-Pie-9-0-适配"><a href="#Android-Pie-9-0-适配" class="headerlink" title="Android Pie(9.0)适配"></a>Android Pie(9.0)适配</h1><h2 id="查看新功能"><a href="#查看新功能" class="headerlink" title="查看新功能"></a>查看新功能</h2><p>###显示屏缺口支持</p>
+<ul>
+<li>使用<code>getDisplayCutout()</code>函数获取缺口屏（刘海屏）的参数</li>
+<li>可以通过谷歌提供的适配方案，使用挖孔区全屏显示解决：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WindowManager.LayoutParams lp = getWindow().getAttributes();</span><br><span class="line">lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;</span><br><span class="line">getWindow().setAttributes(lp);</span><br></pre></td></tr></table></figure>
+<p>###多个通知增强功能</p>
+<ul>
+<li>支持图像：现在，Android 9 可在手机的“短信通知”中显示图像。 您可以使用对短信使用 setData()来显示图像。 以下代码段演示了如何创建 Person 和包含图像的短信。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Create new Person.</span><br><span class="line">Person sender = new Person()</span><br><span class="line">        .setName(name)</span><br><span class="line">        .setUri(uri)</span><br><span class="line">        .setIcon(null)</span><br><span class="line">        .build();</span><br><span class="line">// Create image message.</span><br><span class="line">Message message = new Message(&quot;Picture&quot;, time, sender)</span><br><span class="line">        .setData(&quot;image/&quot;, imageUri);</span><br><span class="line">Notification.MessagingStyle style = new Notification.MessagingStyle(getUser())</span><br><span class="line">        .addMessage(&quot;Check this out!&quot;, 0, sender)</span><br><span class="line">        .addMessage(message);</span><br></pre></td></tr></table></figure>
+<p>[图片上传失败…(image-b7321d-1544772143959)]</p>
+<p>###适用于可绘制对象和位图的 ImageDecoder<br>Android 9 引入了 ImageDecoder 类，可提供现代化的图像解码方法。 使用该类取代 BitmapFactory 和 BitmapFactory.Options API。</p>
+<p>###动画<br>Android 9 引入了 AnimatedImageDrawable 类，用于绘制和显示 GIF 和 WebP 动画图像。</p>
+<p>###自动填充框架<br>Android 9 引入了多项改进，自动填充服务可以利用这些改进进一步增强用户填写表单时的体验。 如需详细了解如何在您的应用中使用自动填充功能，请参阅<a href="https://developer.android.google.cn/guide/topics/text/autofill" target="_blank" rel="noopener">自动填充框架</a>指南。</p>
+<p><a href="https://developer.android.google.cn/about/versions/pie/android-9.0#art-aot-dex" target="_blank" rel="noopener"><strong>更多新功能</strong></a></p>
+<p>##行为变更<br>比较多，建议直接看文档</p>
+<p><a href="https://developer.android.google.cn/about/versions/pie/android-9.0-changes-all#privacy-changes-all" target="_blank" rel="noopener">所有应用</a></p>
+<p><a href="https://developer.android.google.cn/about/versions/pie/android-9.0-changes-all#privacy-changes-all" target="_blank" rel="noopener">以 API 级别 28+ 为目标的应用</a></p>
+<p><strong>我们公司的app需要注意的几个点，可能对我们有影响</strong></p>
+<ul>
+<li>限制访问电话号码</li>
+<li>使用非 SDK 接口的限制</li>
+<li>传输层安全协议 (TLS) 实现变更</li>
+<li>Android 9 完全取消了对 Android 安全加密文件 (ASEC) 的支持。</li>
+<li>现在强制执行 FLAG_ACTIVITY_NEW_TASK 要求</li>
+<li>屏幕旋转变更</li>
+<li>构建序列号弃用(在 Android 9 中，Build.SERIAL 始终设置为 “UNKNOWN” 以保护用户的隐私。)</li>
+<li>无法再让多个进程共用同一 WebView 数据目录</li>
+<li>在 Android 9 之前，暂停的应用发出的通知会被取消。 从 Android 9 开始，暂停的应用发出的通知将被隐藏，直至应用继续运行。</li>
+</ul>
+<p>###对于非 SDK 接口的限制<br>无论是直接使用还是通过反射或 JNI 间接使用。 无论应用是引用非 SDK 接口还是尝试使用反射或 JNI 获取其句柄，均适用这些限制。</p>
+<p>下面是名单类型：</p>
+<ul>
+<li>白名单：SDK</li>
+<li>浅灰名单：仍可以访问的非 SDK 函数/字段。</li>
+<li>深灰名单：<ul>
+<li>对于目标 SDK 低于 API 级别 28 的应用，允许使用深灰名单接口。</li>
+<li>对于目标 SDK 为 API 28 或更高级别的应用：行为与黑名单相同</li>
+</ul>
+</li>
+<li>黑名单：受限，无论目标 SDK 如何。 平台将表现为似乎接口并不存在。 例如，无论应用何时尝试使用接口，平台都会引发 NoSuchMethodError/NoSuchFieldException，即使应用想要了解某个特殊类别的字段/函数名单，平台也不会包含接口。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/4974296-ef49c349154110d8.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="名单类型"></p>
+<p>下表详细说明了各种访问方式及其相应的结果。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4974296-af6d22c4cdd76f47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="名单类型"></p>
+<p><a href="https://www.bilibili.com/video/av29758409" target="_blank" rel="noopener">讲解视频</a></p>
+<p><a href="https://developer.android.google.cn/about/versions/pie/restrictions-non-sdk-interfaces" target="_blank" rel="noopener">veridex检测,需要翻墙</a></p>
+<p>###扩展阅读<br><a href="https://blog.csdn.net/qq_17766199/article/details/81433706" target="_blank" rel="noopener">AndroidX了解一下</a></p>
+<p><a href="https://blog.csdn.net/qq_23062979/article/details/81294551" target="_blank" rel="noopener">Android Jetpack</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2018/07/10/Android Pie(9.0)适配/" data-id="cjraig48a0004ksto47qn38kx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/10/ React Native 入门/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          React Native 入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/19/Android 组件化规范/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android 组件化规范</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

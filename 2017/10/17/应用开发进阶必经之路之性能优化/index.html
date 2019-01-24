@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>应用开发进阶必经之路之性能优化 | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说Android应用开发中的一些性能优化点，帮助你更好的做好APP的性能优化">
+<meta name="keywords" content="Android,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应用开发进阶必经之路之性能优化">
+<meta property="og:url" content="https://github.com/2017/10/17/应用开发进阶必经之路之性能优化/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说Android应用开发中的一些性能优化点，帮助你更好的做好APP的性能优化">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-01-24T09:39:13.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="应用开发进阶必经之路之性能优化">
+<meta name="twitter:description" content="本文主要说Android应用开发中的一些性能优化点，帮助你更好的做好APP的性能优化">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-应用开发进阶必经之路之性能优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/17/应用开发进阶必经之路之性能优化/" class="article-date">
+  <time datetime="2017-10-17T08:00:36.000Z" itemprop="datePublished">2017-10-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      应用开发进阶必经之路之性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说Android应用开发中的一些性能优化点，帮助你更好的做好APP的性能优化<br><a id="more"></a></p>
+<h1 id="性能问题分类"><a href="#性能问题分类" class="headerlink" title="性能问题分类"></a>性能问题分类</h1><h3 id="1-内存问题："><a href="#1-内存问题：" class="headerlink" title="- 1.内存问题："></a>- 1.内存问题：</h3><p> 耗内存、OOM、程序切换到后台后占用内存无法释放（OOM会影响产品的稳定性；耗内存、内存泄露会影响整机的性能；占用内存多预示着留给其它应用的剩余内存空间小）；</p>
+<h3 id="2-功耗问题"><a href="#2-功耗问题" class="headerlink" title="- 2.功耗问题"></a>- 2.功耗问题</h3><p> 发烫（耗电）</p>
+<h3 id="3-流畅度问题"><a href="#3-流畅度问题" class="headerlink" title="- 3.流畅度问题"></a>- 3.流畅度问题</h3><p> 启动慢、页面显示需要长时间转圈加载、页面切换卡顿、黑白屏（卡慢崩会让人烦躁）；</p>
+<p> 针对上面一系列的性能问题，谷歌官方提供了各种各样的工具来针对性的解决各个方面的问题，也有很多不错的第三方工具值得尝试：<br>内存问题：提供了Android Studio的静态代码检测功能、Android Monitor；第三方内存泄露分析工具Leakcanary、MAT；<br>功耗问题：提供了GPU呈现模式、battery-historian、Android Monitor；</p>
+<h2 id="流畅度问题：提供了Android-Studio的静态代码检测功能、Android-Monitor、HierarchyViewer、StrictMode、过渡绘制检测工具、TraceView等；"><a href="#流畅度问题：提供了Android-Studio的静态代码检测功能、Android-Monitor、HierarchyViewer、StrictMode、过渡绘制检测工具、TraceView等；" class="headerlink" title="流畅度问题：提供了Android Studio的静态代码检测功能、Android Monitor、HierarchyViewer、StrictMode、过渡绘制检测工具、TraceView等；"></a>流畅度问题：提供了Android Studio的静态代码检测功能、Android Monitor、HierarchyViewer、StrictMode、过渡绘制检测工具、TraceView等；</h2><h2 id="流畅度问题"><a href="#流畅度问题" class="headerlink" title="流畅度问题"></a>流畅度问题</h2><p> 主要是界面过度绘制问题<br> 优化方法</p>
+<ul>
+<li><p>merge<br>作为根目录减少层级 原理是减少根目录Framlayout的绘制</p>
+<ul>
+<li>viewStub<br>加载页面时不绘制该布局<br>原理是重写onDraw方法并被置空，onMeasure方法也没有实现 从而不绘制 而是在需要显示的时候显示（inflate）</li>
+<li>Space<br>加载页面时不绘制布局<br>原理同viewStub类似 但是他是绘制尺寸大小的 有自己的宽高</li>
+<li>去掉多余的背景<br>一般的activity都有个主题 它会为activity的window设置背景，再为activity设置背景显然会多绘制一次<br>原理是减少一层背景的绘制</li>
+</ul>
+<p>==说明==：<br>  1、在主题中去掉Window的背景时要注意，去掉之后必须重新运行程序检查一下，避免有些Activity并没有设置背景导致界面背景为黑色；<br>  2、有的程序为了避免冷启动时界面黑屏/白屏的问题，在主题中为window设置了一张图片，然后在布局文件中为Activity也设置了背景，这样既会导致过渡绘制问题，还会导致内存问题（同一个页面两张全屏的图片，双倍内存）；所以这种解决方式并不妥，如果是启动速度问题，直接优化启动速度比这种方式靠谱。</p>
+</li>
+<li>最重要的是产品设计合理，多和产品、UI沟通，避免无意义的工作</li>
+</ul>
+<hr>
+<h2 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h2><p>工具：<br>Android Studio提高代码质量必杀技：Inspact Code  LeakCanery</p>
+<h4 id="非静态内部类导致的内存泄漏："><a href="#非静态内部类导致的内存泄漏：" class="headerlink" title="- 非静态内部类导致的内存泄漏："></a>- 非静态内部类导致的内存泄漏：</h4><p> 比如Handler，解决方法是将内部类写成静态内部类，在静态内部类中使用软引用/弱引用持有外部类的实例</p>
+<h4 id="IO操作后，没有关闭文件导致的内存泄露"><a href="#IO操作后，没有关闭文件导致的内存泄露" class="headerlink" title="-IO操作后，没有关闭文件导致的内存泄露"></a>-IO操作后，没有关闭文件导致的内存泄露</h4><p> 比如Cursor、FileInputStream、FileOutputStream使用完后没有关闭，这种问题在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了；</p>
+<h4 id="自定义View中使用TypedArray后，没有recycle，"><a href="#自定义View中使用TypedArray后，没有recycle，" class="headerlink" title="-自定义View中使用TypedArray后，没有recycle，"></a>-自定义View中使用TypedArray后，没有recycle，</h4><p> 这种问题也可以在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了；</p>
+<h4 id="某些地方使用了四大组件的context，在离开这些组件后仍然持有其context导致的内存泄露"><a href="#某些地方使用了四大组件的context，在离开这些组件后仍然持有其context导致的内存泄露" class="headerlink" title="-某些地方使用了四大组件的context，在离开这些组件后仍然持有其context导致的内存泄露"></a>-某些地方使用了四大组件的context，在离开这些组件后仍然持有其context导致的内存泄露</h4><p> 1、数字1：启动Activity在这些类中是可以的，但是需要创建一个新的task，一般情况不推荐；</p>
+<h4 id="属性动画导致的内存泄漏"><a href="#属性动画导致的内存泄漏" class="headerlink" title="属性动画导致的内存泄漏"></a>属性动画导致的内存泄漏</h4><p> google提供的一种无限循环的属性动画 在activity销毁是 需要先将动画关闭</p>
+<p>2、数字2：在这些类中去layout inflate是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用；</p>
+<p>3、数字3：在Receiver为null时允许，在4.2或以上的版本中，用于获取黏性广播的当前值。（可以无视）；</p>
+<h4 id="加载图片导致的内存问题"><a href="#加载图片导致的内存问题" class="headerlink" title="加载图片导致的内存问题"></a>加载图片导致的内存问题</h4><p> 这个问题遵循以下原则就可以了：<br>1、UI只提供一套高分辨率的图，图片建议放在drawable-xxhdpi文件夹下（放在xxxhdpi或者更高分辨率的文件夹下没有必要，权衡利弊，照顾主流设备即可），这样在低分辨率设备中图片的大小只是压缩，不会存在内存增大的情况；<br>2、涉及到桌面插件或者不需要缩放的图片，放在drawable-nodpi文件夹下，这个文件夹下的图片在任何设备上都是不会缩放的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2017/10/17/应用开发进阶必经之路之性能优化/" data-id="cjraig4950015ksto58bw4cy4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/17/View的事件体系/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          View 的事件体系
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/10/HashMap的实现原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HashMap的实现原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

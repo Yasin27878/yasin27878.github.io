@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>图片过大导致Activity启动慢的问题 | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说图片过大导致Activity启动慢的问题">
+<meta name="keywords" content="Android,Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片过大导致Activity启动慢的问题">
+<meta property="og:url" content="https://github.com/2017/03/17/图片过大导致Activity启动慢的问题/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说图片过大导致Activity启动慢的问题">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-01-24T09:06:29.369Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图片过大导致Activity启动慢的问题">
+<meta name="twitter:description" content="本文主要说图片过大导致Activity启动慢的问题">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-图片过大导致Activity启动慢的问题" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/17/图片过大导致Activity启动慢的问题/" class="article-date">
+  <time datetime="2017-03-17T08:07:36.000Z" itemprop="datePublished">2017-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      图片过大导致Activity启动慢的问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说图片过大导致Activity启动慢的问题<br><a id="more"></a></p>
+<h2 id="Activity启动慢的问题"><a href="#Activity启动慢的问题" class="headerlink" title="Activity启动慢的问题"></a>Activity启动慢的问题</h2><p>前言：今天写个demo 无意间发现布居中只有两个常规的控件但是Activity的启动时间达到惊人的 5s184ms 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">03-15 18:15:39.578 1093-1120/? I/ActivityManager: Displayed com.yasin.androidndemo/.activity.AnimationActivity: +5s184ms</span><br></pre></td></tr></table></figure></p>
+<p>然后我就不淡定了，这是什么鬼？我决定找到元凶并解决它！</p>
+<h3 id="1-定位问题"><a href="#1-定位问题" class="headerlink" title="1.定位问题"></a>1.定位问题</h3><ul>
+<li><p>1.首先把Activity中初始化的东西全部注释</p>
+<p><strong>结果</strong>：运行时间并没有什么大变化 所以排除代码的问题</p>
+</li>
+<li><p>2.注释父控件布局内的所有控件</p>
+<p>  <strong>结果</strong>：时间变成AnimationActivity: +183ms 启动时间锐减啊，这说明启动慢是控件的问题</p>
+</li>
+<li>3.一层一层放开注释 最终发现影响启动时间的是一个ImageView<br>这是我突然想到 不会是==图片过大==吧！！！<br>  打开图片一看  还真是 400*386 的分辨率<h3 id="2-解决问题"><a href="#2-解决问题" class="headerlink" title="2.解决问题"></a>2.解决问题</h3>找到问题就好解决了这两有两种方案 </li>
+<li>1 .通过代码压缩图片显示<br>这样方式就不在ImageView中设置图片 在代码中通过压缩图片大小来显示图片（一种是自己写BitmapFactory 调整inSampleSize ，另一种是直接使用图片加载框架glide等）</li>
+</ul>
+<p><strong>注</strong> ：这个方式写起来简单，但是扩展性不强</p>
+<ul>
+<li><p>2 .自定义View<br>写一个继承ImageView的View 在初始化中处理<br>加载图片逻辑<br>现在来实现下这个过程</p>
+<ul>
+<li><p>1)在values的 attrs.xml中创建一个属性集合ImageViewNative  和一个xml属性srcNative,并指定类型integer（也就是图片的类型在项目中是id）如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   	&lt;declare-styleable name=&quot;ImageViewNative&quot;&gt;</span><br><span class="line">	&lt;attr name=&quot;srcNative&quot; format=&quot;integer&quot;/&gt;</span><br><span class="line">&lt;/declare-styleable&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2）在View的构造方法中解析相应标签并做处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class ImageViewNative extends AppCompatImageView &#123;</span><br><span class="line">ImageViewNative aNative;</span><br><span class="line"></span><br><span class="line">public ImageViewNative(Context context) &#123;</span><br><span class="line">    super(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public ImageViewNative(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    super(context, attrs);</span><br><span class="line">    init(context, attrs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public ImageViewNative(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">    super(context, attrs, defStyleAttr);</span><br><span class="line">    init(context, attrs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void init(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ImageViewNative);</span><br><span class="line">    if (!isInEditMode()) &#123;</span><br><span class="line">        int img = array.getResourceId(R.styleable.ImageViewNative_srcNative, 0);</span><br><span class="line">        array.recycle();</span><br><span class="line">        if (img != 0)</span><br><span class="line">            GlideUtils.displayNative(this, img);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注</strong>： GlideUtils.displayNative(this, img); 是一段Glide图片加载的封装，你可以使用其他方式替代</p>
+</li>
+<li><p>3）在布局中使用自定义属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.yasin.androidndemo.view.ImageViewNative</span><br><span class="line">android:id=&quot;@+id/tv_logo&quot;</span><br><span class="line">android:layout_width=&quot;100dp&quot;</span><br><span class="line">android:layout_height=&quot;100dp&quot;</span><br><span class="line">android:layout_marginBottom=&quot;@dimen/margin_30dp&quot;</span><br><span class="line">app:srcNative=&quot;@mipmap/ic_logo&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>使用自定义属性需要在布局文件中添加schemas声明
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br></pre></td></tr></table></figure>
+</code></pre><p> 自定义View可以在自定义的View中处理图片而不用去每个类中修改代码,另外它的扩展性比较强 如果不需要设置圆角等其他定制的话可以方便添加</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>使用新的方案加载结果为 .activity.AnimationActivity: +264ms  效果很明显</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2017/03/17/图片过大导致Activity启动慢的问题/" data-id="cjraig4970017kstoxdqzva2f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image/">Image</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/06/Android Spinner值不显示,选择列表正常/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android Spinner值不显示,选择列表正常
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/16/Android 开发常见错误及分析解决/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android 开发常见错误及分析解决</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

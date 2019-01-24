@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android 8.0适配 | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说Android 8.0适配">
+<meta name="keywords" content="Android,Android 8.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 8.0适配">
+<meta property="og:url" content="https://github.com/2018/03/10/Android 8.0适配/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说Android 8.0适配">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-01-24T10:09:25.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 8.0适配">
+<meta name="twitter:description" content="本文主要说Android 8.0适配">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android 8.0适配" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/10/Android 8.0适配/" class="article-date">
+  <time datetime="2018-03-10T08:07:36.000Z" itemprop="datePublished">2018-03-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 8.0适配
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说Android 8.0适配<br><a id="more"></a></p>
+<h1 id="Android-8-0适配"><a href="#Android-8-0适配" class="headerlink" title="Android 8.0适配"></a>Android 8.0适配</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>将我们项目中的targetSdkVersion改为 26（8.0） 或者 27（8.1），记住不要超过27，毕竟我还没有告诉你Android P怎么适配（/滑稽）。</p>
+<h2 id="Android-8-0-行为变更"><a href="#Android-8-0-行为变更" class="headerlink" title="Android 8.0 行为变更"></a>Android 8.0 行为变更</h2><h3 id="1-提醒窗口"><a href="#1-提醒窗口" class="headerlink" title="1.提醒窗口"></a>1.提醒窗口</h3><p>如果应用使用 <figure class="highlight plain"><figcaption><span>权限的应用无法再使用以下窗口类型来在其他应用和系统窗口上方显示提醒窗口：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">- TYPE_PHONE</span><br><span class="line">- TYPE_PRIORITY_PHONE</span><br><span class="line">- TYPE_SYSTEM_ALERT</span><br><span class="line">- TYPE_SYSTEM_OVERLAY</span><br><span class="line">- TYPE_SYSTEM_ERROR</span><br></pre></td></tr></table></figure></p>
+<p>相反，应用必须使用名为 <figure class="highlight plain"><figcaption><span>的新窗口类型。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">也就是说需要在之前的基础上判断一下：</span><br></pre></td></tr></table></figure></p>
+<p>if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {<br>    mWindowParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY<br>}else {<br>    mWindowParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当然记得需要有权限</span><br></pre></td></tr></table></figure></p>
+<p><uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission></p>
+<p><uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW"></uses-permission></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用 ```TYPE_APPLICATION_OVERLAY``` 窗口类型显示应用的提醒窗口时，请记住新窗口类型的以下特性：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用的提醒窗口始终显示在状态栏和输入法等关键系统窗口的下面。</li>
+<li>系统可以移动使用 TYPE_APPLICATION_OVERLAY 窗口类型的窗口或调整其大小，以改善屏幕显示效果。</li>
+<li>通过打开通知栏，用户可以访问设置来阻止应用显示使用 TYPE_APPLICATION_OVERLAY 窗口类型显示的提醒窗口。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 2.网页表单自动填充</span><br><span class="line">现在，Android 自动填充框架提供对自动填充功能的内置支持，对于安装到运行 Android 8.0 的设备上的应用，与 WebView 对象相关的下列函数已经发生变化：</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>WebSettings</p>
+<ul>
+<li>getSaveFormData() 函数现在返回 false。之前，此函数返回 true。</li>
+<li>调用 setSaveFormData() 不再有任何效果。<br>WebViewDatabase</li>
+<li>调用 clearFormData() 不再有任何效果。</li>
+<li>hasFormData() 函数现在返回 false。之前，当表单包含数据时，此函数返回 true。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">### 3.集合的处理</span><br><span class="line">在 Android 8.0 中，Collections.sort() 是在 List.sort() 的基础上实现的。在 Android 7.x（API 级别 24 和 25）中，则恰恰相反。在过去，List.sort() 的默认实现会调用 Collections.sort()。</span><br><span class="line">- List.sort() 的实现不能调用 Collections.sort()，因为这会导致堆栈因无限递归而溢出。相反，如果您需要 List 实现的默认行为，应避免重写 sort()。</span><br><span class="line">此项变更使 Collections.sort() 可以利用优化的 List.sort() 实现，但具有以下限制：</span><br><span class="line">    - 如果父类以不适当的方法实现 sort() ，通常最好使用在 List.toArray()、Arrays.sort() 和 ListIterator.set() 的基础上构建的实现重写 List.sort()。</span><br><span class="line"></span><br><span class="line">    - 如果您选择后者只是因为您希望开发一种适用于所有 API 级别的 sort() 函数，可以考虑赋予其一个唯一的名称，例如 sortCompat()，而不是重写 sort()。</span><br><span class="line">- 现在，Collections.sort() 只是对调用 sort() 的 List 实现进行的一项结构性修改。例如，在 Android 8.0 之前的平台版本中，如果通过调用 List.sort() 进行排序，则当迭代处理 ArrayList 以及在迭代过程中调用 sort() 时，会引发 ConcurrentModificationException。而 Collections.sort() 则不会引发异常。</span><br><span class="line">    此项变更使平台行为更加一致：现在，两种方法都会引发 ConcurrentModificationException。</span><br><span class="line"></span><br><span class="line">现在，```AbstractCollection.removeAll() ```和 ```AbstractCollection.retainAll()``` 始终引发 ```NullPointerException```；之前，当集合为空时不会引发 ```NullPointerException``` 所以我们需要做判空处理。。</span><br><span class="line">### 4.运行时权限</span><br><span class="line">在 Android 8.0 之前，如果应用在运行时请求权限并且被授予该权限，系统会错误地将属于同一权限组并且在清单中注册的其他权限也一起授予应用。</span><br><span class="line"></span><br><span class="line">对于针对 Android 8.0 的应用，此行为已被纠正。系统只会授予应用明确请求的权限。然而，一旦用户为应用授予某个权限，则所有后续对该权限组中权限的请求都将被自动批准。</span><br><span class="line"></span><br><span class="line">#### 所以总结下来，如果你之前是用什么权限就去申请什么权限，那么恭喜你，这个变化不会影响到你。</span><br><span class="line">#### 如果你只申请了权限组中的某些权限，却用了同组的其他权限，那么你就需要去适配一下了。</span><br><span class="line"></span><br><span class="line">那么怎么适配呢，如果你去检查之前每个申请权限的地方，未免太过麻烦。那么你可以根据你项目中的Manifest文件中需要的权限与权限组去对比，整理出你需要申请的各个权限组,然后申请该权限组</span><br><span class="line">### 5.通知适配</span><br><span class="line">8.0在通知这里变化还挺多的，比如通知渠道、通知标志、通知超时、背景颜色的等，详细的说明可以去看官方的Android 8.0 [功能和 API](https://developer.android.google.cn/guide/topics/ui/notifiers/notifications#ManageChannels)。</span><br><span class="line">#### - 通知渠道：</span><br><span class="line">Android 8.0 引入了通知渠道，其允许您为要显示的每种通知类型创建用户可自定义的渠道。用户界面将通知渠道称之为通知类别。[详见 https://developer.android.com/training/notify-user/channels](https://developer.android.google.cn/training/notify-user/channels ) </span><br><span class="line">![image](http://upload-images.jianshu.io/upload_images/4974296-689527687f761e84.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">可以看到高德地图分的很细致，分为四个组共13个类别(华为貌似对组不生效)。这样有个好处，我们可以控制我们想收到的通知，比如我不喜欢运营活动通知，那我就可以把它关闭。</span><br><span class="line"></span><br><span class="line">这样避免大量的不必要通知，否则使得用户觉得烦，一棒子打死。直接关闭你的允许通知。当然了，大量app都还没有适配，适配的也都分的不是很细致.</span><br><span class="line"></span><br><span class="line">当然更重要的问题是，如果不去适配，可能通知都不会弹出来。那么适配的方法如下：</span><br></pre></td></tr></table></figure>
+<p>private void createNotificationChannel() {<br>    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</p>
+<pre><code>    NotificationManager notificationManager = (NotificationManager)
+            getSystemService(Context.NOTIFICATION_SERVICE);
+
+    //分组（可选）
+    //groupId要唯一
+    String groupId = &quot;group_001&quot;;
+    NotificationChannelGroup group = new NotificationChannelGroup(groupId, &quot;广告&quot;);
+
+    //创建group
+    notificationManager.createNotificationChannelGroup(group);
+
+    //channelId要唯一
+    String channelId = &quot;channel_001&quot;;
+
+    NotificationChannel adChannel = new NotificationChannel(channelId,
+            &quot;推广信息&quot;, NotificationManager.IMPORTANCE_DEFAULT);
+    //补充channel的含义（可选）
+    adChannel.setDescription(&quot;推广信息&quot;);
+    //将渠道添加进组（先创建组才能添加）
+    adChannel.setGroup(groupId);
+    //创建channel
+    notificationManager.createNotificationChannel(adChannel);
+
+    //创建通知时，标记你的渠道id
+    Notification notification = new Notification.Builder(MainActivity.this, channelId)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+            .setContentTitle(&quot;一条新通知&quot;)
+            .setContentText(&quot;这是一条测试消息&quot;)
+            .setAutoCancel(true)
+            .build();
+    notificationManager.notify(1, notification);
+
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">效果如下:</span><br><span class="line"></span><br><span class="line">![image](http://upload-images.jianshu.io/upload_images/4974296-247c2245c0bc42f6.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">华为手机当只有一个渠道时，不会显示，会当做默认通知处理，除非一个以上。</span><br><span class="line"></span><br><span class="line">注意：当Channel已经存在时，后面的createNotificationChannel方法仅能更新其name/description，以及对importance进行降级，其余配置均无法更新。所以如果有必要的修改只能创建新的渠道，删除旧渠道。</span><br><span class="line"></span><br><span class="line">删除渠道代码如下：</span><br></pre></td></tr></table></figure></p>
+<p>private void deleteNotificationChannel(String channelId){<br>    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {<br>        NotificationManager mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);<br>        mNotificationManager.deleteNotificationChannel(channelId);<br>    }<br>}<br><code>`</code></p>
+<h3 id="6-后台限制执行"><a href="#6-后台限制执行" class="headerlink" title="6.后台限制执行"></a>6.后台限制执行</h3><p><a href="https://developer.android.google.cn/about/versions/oreo/background" target="_blank" rel="noopener">具体说明https://developer.android.google.cn/about/versions/oreo/background</a></p>
+<p>应用在两个方面受到限制：</p>
+<p><strong>后台服务限制:</strong> 处于空闲状态时，应用可以使用的后台服务存在限制。 这些限制不适用于前台服务，因为前台服务更容易引起用户注意。</p>
+<p><strong>广播限制：</strong> 除了有限的例外情况，应用无法使用清单注册隐式广播。 它们仍然可以在运行时注册这些广播，并且可以使用清单注册专门针对它们的显式广播。</p>
+<p>在大多数情况下，应用都可以使用 JobScheduler 克服这些限制。 这种方式让应用安排为在未活跃运行时执行工作，不过仍能够使系统可以在不影响用户体验的情况下安排这些作业。</p>
+<p>关于的用法可以参考官方例子：android-JobScheduler<br><a href="https://github.com/googlesamples/android-JobScheduler">https://github.com/googlesamples/android-JobScheduler</a></p>
+<p>当然还有后台位置的限制需要去注意。<br><a href="https://developer.android.google.cn/about/versions/oreo/background-location-limits" target="_blank" rel="noopener">https://developer.android.google.cn/about/versions/oreo/background-location-limits</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p>MIUI 10 通知类别 / Channel 适配</p>
+<p>  <a href="https://dev.mi.com/console/doc/detail?pId=1303" target="_blank" rel="noopener">https://dev.mi.com/console/doc/detail?pId=1303</a></p>
+</li>
+<li>Create and Manage Notification Channels<br>  <a href="https://developer.android.google.cn/training/notify-user/channels" target="_blank" rel="noopener">https://developer.android.google.cn/training/notify-user/channels</a></li>
+<li>Presentation of Notifications<br><a href="https://source.android.google.cn/compatibility/8.0/android-8.0-cdd#3_8_user_interface_compatibility" target="_blank" rel="noopener">https://source.android.google.cn/compatibility/8.0/android-8.0-cdd#3_8_user_interface_compatibility</a></li>
+<li>Android 实现应用更新适配 Android O<br><a href="https://blog.csdn.net/mq2856992713/article/details/79688587" target="_blank" rel="noopener">https://blog.csdn.net/mq2856992713/article/details/79688587</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2018/03/10/Android 8.0适配/" data-id="cjraig4aa002vkstorpz4pnci" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/19/Android 组件化规范/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android 组件化规范
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/05/Android多点触控时出现pointerIndex out of range 的错误分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android多点触控时出现pointerIndex out of range 的错误分析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

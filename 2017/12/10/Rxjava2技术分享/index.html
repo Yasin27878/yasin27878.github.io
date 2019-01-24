@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>为什么要升级Rxjava2？ | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说我们为什么要升级Rxjava2，以及升级Rxjava2的好处">
+<meta name="keywords" content="Android,Rxjava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么要升级Rxjava2？">
+<meta property="og:url" content="https://github.com/2017/12/10/Rxjava2技术分享/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说我们为什么要升级Rxjava2，以及升级Rxjava2的好处">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/1269832/18634280/93a82d0a-7e80-11e6-9485-5496fc98483f.png">
+<meta property="og:updated_time" content="2019-01-24T09:47:07.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为什么要升级Rxjava2？">
+<meta name="twitter:description" content="本文主要说我们为什么要升级Rxjava2，以及升级Rxjava2的好处">
+<meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/1269832/18634280/93a82d0a-7e80-11e6-9485-5496fc98483f.png">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Rxjava2技术分享" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/10/Rxjava2技术分享/" class="article-date">
+  <time datetime="2017-12-10T08:07:36.000Z" itemprop="datePublished">2017-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      为什么要升级Rxjava2？
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说我们为什么要升级Rxjava2，以及升级Rxjava2的好处<br><a id="more"></a></p>
+<h2 id="1-为什么要升级Rxjava2"><a href="#1-为什么要升级Rxjava2" class="headerlink" title="1. 为什么要升级Rxjava2"></a>1. 为什么要升级Rxjava2</h2><h4 id="1-兼容Reactive-Streams规范-官网"><a href="#1-兼容Reactive-Streams规范-官网" class="headerlink" title="1. 兼容Reactive Streams规范 官网"></a>1. 兼容Reactive Streams规范 <a href="https://github.com/reactive-streams/reactive-streams-jvm">官网</a></h4><pre><code>Reactive Streams 是一种为异步流处理提供非阻塞压力的标准。
+</code></pre><h4 id="2-更好的处理BackPressure的情况—-Flowable"><a href="#2-更好的处理BackPressure的情况—-Flowable" class="headerlink" title="2. 更好的处理BackPressure的情况— Flowable"></a>2. 更好的处理BackPressure的情况— Flowable</h4><pre><code> 背压，即生产者的速度大于消费者的速度带来的问题
+使用Flowable我们需要定义它的事件处理策略(缓存,丢弃,报错)
+</code></pre><h4 id="3-拥有比Rxjava1更好的性能"><a href="#3-拥有比Rxjava1更好的性能" class="headerlink" title="3. 拥有比Rxjava1更好的性能"></a>3. 拥有比Rxjava1更好的<a href="https://github.com/akarnokd/akarnokd-misc/issues/2">性能</a></h4><p><img src="https://cloud.githubusercontent.com/assets/1269832/18634280/93a82d0a-7e80-11e6-9485-5496fc98483f.png" alt="image"></p>
+<h2 id="2-Rxjava1到Rxjava2有哪些变化"><a href="#2-Rxjava1到Rxjava2有哪些变化" class="headerlink" title="2 .Rxjava1到Rxjava2有哪些变化"></a>2 .Rxjava1到Rxjava2有哪些变化</h2><h4 id="1-Nulls"><a href="#1-Nulls" class="headerlink" title="1.Nulls"></a>1.Nulls</h4><pre><code>这是一个很大的变化，熟悉 RxJava 1.x 的童鞋一定都知道，1.x 是允许我们在发射事件的时候传入 null 值的
+，但现在 2.x 不支持了，直接抛 NullPointerException 。
+</code></pre><h4 id="2-Observable-gt-Observable-Flowable"><a href="#2-Observable-gt-Observable-Flowable" class="headerlink" title="2. Observable-&gt;Observable,Flowable"></a>2. Observable-&gt;Observable,Flowable</h4><pre><code>1.)基本对比
+
+- rxjava1的Observable支持背压 通过.onBackpressureXXX使得支持背压 订阅关系  Observable subscribe Observer(new Acition1)
+- rxjava2的Observable不支持背压 他的订阅关系Observable-&gt;subscribe -&gt;Observer(new Consumer)
+- rxjava2 的为了支持背压 订阅关系 Flowable-&gt;subscribe-&gt;Subscriber(new Consumer)
+
+2.)发射世界和接收事件满足的条件
+- 上游可以发送无限个onNext, 下游也可以接收无限个onNext.
+- 当上游发送了一个onComplete后, 上游onComplete之后的事件将会继续发送, 而下游收到onComplete事件之后将不再继续接收事件.
+- 当上游发送了一个onError后, 上游onError之后的事件将继续发送, 而下游收到onError事件之后将不再继续接收事件.
+- 上游可以不发送onComplete或onError.
+- 最为关键的是onComplete和onError必须唯一并且互斥, 即不能发多个onComplete, 也不能发多个onError, 也不能先发一个onComplete, 然后再发一个onError, 反之亦然
+</code></pre><h4 id="3-调度器的变化"><a href="#3-调度器的变化" class="headerlink" title="3.调度器的变化"></a>3.调度器的变化</h4><pre><code>- Schedulers.io() 代表io操作的线程, 通常用于网络,读写文件等io密集型的操作
+- Schedulers.computation() 代表CPU计算密集型的操作, 例如需要大量计算的操作
+- Schedulers.newThread() 代表一个常规的新线程
+- Scheduiers.trampoline() 代表不是立即执行而是加入到队列它是repeat()和retry()的默认调度器
+- Schedulers.immediate()  代表在当前线程操作(2.X 取消)
+
+- AndroidSchedulers.mainThread() 代表Android的主线程
+</code></pre><h4 id="4-Function相关"><a href="#4-Function相关" class="headerlink" title="4.Function相关"></a>4.Function相关</h4><pre><code>在1.x 中是有 Func1，Func2.....FuncN的，但 2.x 中将它们移除，而采用 Function 替换了 Func1，采用 BiFunction 替换了 Func 2..N。并且，它们都增加了 throws Exception，也就是说，不用担心我们做某些操作还需要 try-catch 了。
+</code></pre><h4 id="5-观察者的接口实-Observer对比Subscriber"><a href="#5-观察者的接口实-Observer对比Subscriber" class="headerlink" title="5. 观察者的接口实  Observer对比Subscriber"></a>5. 观察者的接口实  Observer对比Subscriber</h4><p> Observer(rx1)   Subscription  CompositeSubscription</p>
+<ul>
+<li>void onNext(Object o)</li>
+<li>void onError(Throwable e)</li>
+<li><p>void onCompleted();</p>
+<p>Subscriber(rx2) Disposable   CompositeDisposable  </p>
+<ul>
+<li>void onSubscribe(Disposable s) </li>
+<li>void onNext(Object o) </li>
+<li>void onError(Throwable t)  </li>
+<li>void onComplete()</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Rxjava2中一些强大功能和应用场景"><a href="#3-Rxjava2中一些强大功能和应用场景" class="headerlink" title="3.Rxjava2中一些强大功能和应用场景"></a>3.Rxjava2中一些强大功能和应用场景</h2><ul>
+<li>采用 concat 操作符先读取缓存再通过网络请求获取数据<ul>
+<li>利用 concat 的必须调用 onComplete 后才能订阅下一个 Observable 的特性</li>
+</ul>
+</li>
+<li>使用 flatMap 实现多个网络请求依次依赖<ul>
+<li>flatMap 操作符可以将一个发射数据的 Observable 变换为多个 Observables ，然后将它们发射的数据合并后放到一个单独的 Observable</li>
+</ul>
+</li>
+<li>使用 zip 操作符，实现多个接口数据共同更新 UI<ul>
+<li>zip 操作符可以将多个 Observable 的数据结合为一个数据源再发射出去</li>
+</ul>
+</li>
+<li>采用 interval 操作符实现心跳间隔任务<ul>
+<li>interval就是轮训 </li>
+</ul>
+</li>
+<li>使用debounce操作符,实现现需操作放过滤不必要的消息<ul>
+<li>debounce可以指定一段时间内仅第一次发出的消息有效<br>想必即时通讯等需要轮训的任务在如今的 APP 中已是很常见，而 RxJava 2.x 的 interval 操作符可谓完美地解决了我们的疑惑。</li>
+</ul>
+</li>
+<li>retryWhen操作符实现错误重试机制<ul>
+<li>retryWhen可以在错误发生时指定重试次数以及间隔 </li>
+</ul>
+</li>
+</ul>
+<h2 id="4-RxJava1-x-如何平滑升级到RxJava2-x？"><a href="#4-RxJava1-x-如何平滑升级到RxJava2-x？" class="headerlink" title="4.RxJava1.x 如何平滑升级到RxJava2.x？"></a>4.RxJava1.x 如何平滑升级到RxJava2.x？</h2><p>由于RxJava2.x变化较大无法直接升级，幸运的是，官方开发者提供了RxJava2Interop这个库，可以方便地将RxJava1.x升级到RxJava2.x，或者将RxJava2.x转回RxJava1.x。地址：<a href="https://github.com/akarnokd/RxJava2Interop">https://github.com/akarnokd/RxJava2Interop</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2017/12/10/Rxjava2技术分享/" data-id="cjraig48y000tkstoyjiod6mr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/05/Android多点触控时出现pointerIndex out of range 的错误分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android多点触控时出现pointerIndex out of range 的错误分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/17/View的事件体系/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">View 的事件体系</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

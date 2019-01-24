@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android高效加载大图、多图解决方案，有效避免程序OOM | We&#39;re here to put a dent in the universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要说Android高效加载大图、多图解决的方案，可以有效避免Android程序OOM">
+<meta name="keywords" content="Android,OOM,Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android高效加载大图、多图解决方案，有效避免程序OOM">
+<meta property="og:url" content="https://github.com/2017/08/03/Android高效加载大图、多图解决方案，有效避免程序OOM/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="本文主要说Android高效加载大图、多图解决的方案，可以有效避免Android程序OOM">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-01-24T09:34:50.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android高效加载大图、多图解决方案，有效避免程序OOM">
+<meta name="twitter:description" content="本文主要说Android高效加载大图、多图解决的方案，可以有效避免Android程序OOM">
+  
+    <link rel="alternate" href="/atom.xml" title="We&#39;re here to put a dent in the universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">We&#39;re here to put a dent in the universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">爱生活，爱编程</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android高效加载大图、多图解决方案，有效避免程序OOM" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/03/Android高效加载大图、多图解决方案，有效避免程序OOM/" class="article-date">
+  <time datetime="2017-08-03T08:07:36.000Z" itemprop="datePublished">2017-08-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android高效加载大图、多图解决方案，有效避免程序OOM
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要说Android高效加载大图、多图解决的方案，可以有效避免Android程序OOM<br><a id="more"></a></p>
+<h1 id="一-高效加载大图"><a href="#一-高效加载大图" class="headerlink" title="一.高效加载大图"></a>一.高效加载大图</h1><h3 id="1-查看程序可用内存大小"><a href="#1-查看程序可用内存大小" class="headerlink" title="1.查看程序可用内存大小"></a>1.查看程序可用内存大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);</span><br><span class="line">Log.d(&quot;TAG&quot;,&quot;Max memory is &quot;+maxmoory+&quot;KB&quot;);</span><br></pre></td></tr></table></figure>
+<p>因此在展示高分辨率图片的时候，最好先将图片进行压缩。压缩后的图片大小应该和用来展示它的控件大小相近，在一个很小的ImageView上显示一张超大的图片不会带来任何视觉上的好处，但却会占用我们相当多宝贵的内存，而且在性能上还可能会带来负面影响。</p>
+<p>每一种解析方法都提供了一个可选的BitmapFactory.Options参数，将这个参数的inJustDecodeBounds属性设置为true就可以让解析方法禁止为bitmap分配内存，返回值也不再是一个Bitmap对象，而是null。虽然Bitmap是null了，但是BitmapFactory.Options的outWidth、outHeight和outMimeType属性都会被赋值。这个技巧让我们可以在加载图片之前就获取到图片的长宽值和MIME类型，从而根据情况对图片进行压缩。如下代码所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BitmapFactory.Options options = new BitmapFactory.Options();</span><br><span class="line">options.inJustDecodeBounds = true;//禁止为Bitmap分配内存</span><br><span class="line">BitmapFactory.decodeResource(getResources(),R.id.myimage,options);</span><br><span class="line">int imageHeihht = options.outHeight;</span><br><span class="line">int imageWidth = options.outWidth;</span><br><span class="line">String imageType = options.outMimeType;</span><br></pre></td></tr></table></figure></p>
+<p>加载图片前考虑是完整显示图片还是要压缩后再显示,就需要考虑以下因素:</p>
+<ul>
+<li>预估整张图片占用的内存</li>
+<li>为了加在一张图片,你愿意提供多少内存</li>
+<li>用于展示的图片控件的实际大小</li>
+<li>当前设备的屏幕尺寸和分辨率<br>对图片压缩需要使用BitmapFactory.Options中的inSampleSize(例如:2048 <em> 1536像素的图片,inSampleSize= 4,图片被压缩成 512 </em> 384 所占的内存大小为512 <em> 384 </em>4 = 0.75M (假设图片是ARGB_8888类型，即每个像素点占用4个字节)<br>下面的方法可以根据宽高计算出合适的inSampleSize值:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static int calculateInSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight)&#123;</span><br><span class="line">    //源图片的高度和宽度</span><br><span class="line">    final int height  = options.outHeight;</span><br><span class="line">    final int width = options.outWidth;</span><br><span class="line">    int inSampleSaze= 1;</span><br><span class="line">    if(height&gt;reqHeight||width&gt;reqWidth)&#123;</span><br><span class="line">        //计算实际宽高和目标宽高的比率</span><br><span class="line">        final int heightRatio = Math.round((float)height/(float)reqHeight);</span><br><span class="line">        final int widthRatio = Math.round((float)height/(float)reqHeight);</span><br><span class="line">        //选择宽高比例较小的作为InSampleSize的值,这样保证最终图片的宽高是大于目标的宽高</span><br><span class="line">        inSampleSize = heightRatio&gt;widthRatio?widthRatio:heightRatio;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return inSampleSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>获取到inSampleSize值以后再把inJustDecodeBounds设置为false,就可以使用压缩后的图片了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static Bitmap decodeSampleBitmapFromResource(Resources res,int resId,int reqWidth,int reqHeight)&#123;</span><br><span class="line">    //第一次设置inJustDecodeBounds为true,来获取图片大小</span><br><span class="line">    final BitmapFactory.Options options = new BitmapFactory.Options();</span><br><span class="line">    options.inJustDecodeBounds = true;</span><br><span class="line">    BitmapFactory.decodeResource(res,resId,options);</span><br><span class="line">    //调用方法计算inSampleSize</span><br><span class="line">    options.inSampleSize = calculateInSampleSize(options,reqWidth,reqHeight);</span><br><span class="line">    //使用insamplesize在此解析图片</span><br><span class="line">    options.inJustDecodeBounds = false;</span><br><span class="line">    return BitmapFactory.decodeResource(res,resId,options);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面的代码非常简单的将任意一张图片设置压缩成100*100的缩略图,并显示在ImageView上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mImageView.setImageBitmap(decodeSampleBitmapFromResource(getResource(),R.id.myimage,100,100));</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="二-使用图片缓存技术"><a href="#二-使用图片缓存技术" class="headerlink" title="二.使用图片缓存技术"></a>二.使用图片缓存技术</h1><p>防止频繁的显示多张图片 以及回收过的图片再次显示导致大量的加载而引起OOM</p>
+<p>内存缓存技术对那些大量占用应用程序宝贵内存的图片提供了快速访问的方法。其中最核心的类是LruCache (此类在android-support-v4的包中提供) 。这个类非常适合用来缓存图片，它的主要算法原理是==把最近使用的对象用强引用存储在 LinkedHashMap 中，并且把最近最少使用的对象在缓存值达到预设定值之前从内存中移除。==</p>
+<p>为了能够选择一个合适的缓存大小给LruCache, 有以下多个因素应该放入考虑范围内，例如：</p>
+<ul>
+<li>你的设备可以为每个应用程序分配多大的内存？</li>
+<li>设备屏幕上一次最多能显示多少张图片？有多少图片需要进行预加载，因为有可能很快也会显示在屏幕上？</li>
+<li>你的设备的屏幕大小和分辨率分别是多少？一个超高分辨率的设备（例如 Galaxy Nexus) 比起一个较低分辨率的设备（例如 Nexus S），在持有相同数量图片的时候，需要更大的缓存空间。</li>
+<li>图片的尺寸和大小，还有每张图片会占据多少内存空间。</li>
+<li>图片被访问的频率有多高？会不会有一些图片的访问频率比其它图片要高？如果有的话，你也许应该让一些图片常驻在内存当中，或者使用多个LruCache 对象来区分不同组的图片。</li>
+<li>你能维持好数量和质量之间的平衡吗？有些时候，存储多个低像素的图片，而在后台去开线程加载高像素的图片会更加的有效</li>
+</ul>
+<p>下面是一个使用 LruCache 来缓存图片的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private LruCache&lt;String,Bitmap&gt;mMemoryChahe;</span><br><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">    / 获取到可用内存的最大值，使用内存超出这个值会引起OutOfMemory异常。  </span><br><span class="line">    // LruCache通过构造函数传入缓存值，以KB为单位。  </span><br><span class="line">     int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);  </span><br><span class="line">    // 使用最大可用内存值的1/8作为缓存的大小。  </span><br><span class="line">    int cacheSize = maxMemory / 8; </span><br><span class="line">    mMemoryCache = new LruCache&lt;String,Bitmap&gt;(cacheSize)&#123;</span><br><span class="line">        @Override</span><br><span class="line">        protect int sizeOf(String key,Bitmap bitmap)&#123;</span><br><span class="line">            //重写此方法来衡量每张图片的大小,默认返回图片数量.</span><br><span class="line">            return bitmap.getByteCount()/1024;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void addBitmapToMemoryCache(String key,Bitmap bitmap)&#123;</span><br><span class="line">    if(getBitmapFromMemCache(key)==null)&#123;</span><br><span class="line">        mMemoryCache.put(key,bitmap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public Bitmap getBitmapFromMemoryCache(String key)&#123;</span><br><span class="line">    return mMemoryCache.get(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子当中，使用了系统分配给应用程序的八分之一内存来作为缓存大小。在中高配置的手机当中，这大概会有4兆(32/8)的缓存空间。一个全屏幕的 GridView 使用4张 800x480分辨率的图片来填充，则大概会占用1.5兆的空间(800 <em> 480 </em> 4)。因此，这个缓存大小可以存储2.5页的图片。</p>
+<p>当向 ImageView 中加载一张图片时,首先会在 LruCache 的缓存中进行检查。如果找到了相应的键值，则会立刻更新ImageView ，否则开启一个后台线程来加载这张图片。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public void loadBitmap(int resId,ImageView imageview)&#123;</span><br><span class="line">    final String imageKay = String valueOf(resId);</span><br><span class="line">    Bitmap bitmap = mMemoryCache.getBitmapFromMemoryCache(imageKey);</span><br><span class="line">    if(bitmap!=null)&#123;</span><br><span class="line">        imageview.setImageBitmap(bitmap);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        imageview.setImageResource(R.drawable.image_placeholder);</span><br><span class="line">        //缓存</span><br><span class="line">        BitmapWorkerTask task = new BitmapWorkTask(imageview);</span><br><span class="line">        task.execute(resId);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BitmapWorkerTask extends AsyncTask&lt;Integer,Void,Bitmap&gt;&#123;</span><br><span class="line">    //异步加载图片</span><br><span class="line">    @Override</span><br><span class="line">    protected Bitmap doInBackground(Integer...params)&#123;</span><br><span class="line">        final Bitmap bitmap = edcodeSampleBitmapFromResource(getResource(),params[0],100,100);</span><br><span class="line">        addBitmapToMemoryCache(String.valueOf(params[0],bitmap));</span><br><span class="line">        return bitmap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/2017/08/03/Android高效加载大图、多图解决方案，有效避免程序OOM/" data-id="cjraig48k000fkstoc53yznz4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image/">Image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOM/">OOM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/07/Volley源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          深入了解Volley
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/06/使用Shell调用ADB指令方式来点击屏幕/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android设备root下使用Shell调用ADB指令方式来点击屏幕</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ADB/">ADB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-8-0/">Android 8.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-9-0/">Android 9.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AndroidX/">AndroidX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout/">CoordinatorLayout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hashmap/">Hashmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image/">Image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Root/">Root</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RuntimeException/">RuntimeException</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjava/">Rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spinner/">Spinner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/路由/">路由</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ADB/" style="font-size: 10px;">ADB</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Android-8-0/" style="font-size: 10px;">Android 8.0</a> <a href="/tags/Android-9-0/" style="font-size: 10px;">Android 9.0</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/AndroidX/" style="font-size: 10px;">AndroidX</a> <a href="/tags/Bug/" style="font-size: 15px;">Bug</a> <a href="/tags/CoordinatorLayout/" style="font-size: 10px;">CoordinatorLayout</a> <a href="/tags/Exception/" style="font-size: 15px;">Exception</a> <a href="/tags/Hashmap/" style="font-size: 10px;">Hashmap</a> <a href="/tags/Image/" style="font-size: 15px;">Image</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/OOM/" style="font-size: 10px;">OOM</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Root/" style="font-size: 10px;">Root</a> <a href="/tags/RuntimeException/" style="font-size: 10px;">RuntimeException</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Spinner/" style="font-size: 10px;">Spinner</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/路由/" style="font-size: 10px;">路由</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/java_lang_IllegalStateException/">几个Exception分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/04/【推荐】好用强大的Android路由框架--Rudolph/">【推荐】好用强大的Android路由框架--Rudolph</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/07/6条给React开发者的专业建议/">6条给React开发者的专业建议</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/06/APP 线上bug处理/">APP线上bug处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/03/CoordinatorLayout使用解析/">CoordinatorLayout使用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yaisn Yao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
