@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Android消息机制知识点总结 | We&#39;re here to put a dent in the universe | 爱生活，爱编程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#212121">
+    
+    
+    <meta name="keywords" content="Android,ThreadLocal,Handler">
+    <meta name="description" content="这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点">
+<meta name="keywords" content="Android,ThreadLocal,Handler">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android消息机制知识点总结">
+<meta property="og:url" content="https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/index.html">
+<meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
+<meta property="og:description" content="这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-13T08:20:06.290Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android消息机制知识点总结">
+<meta name="twitter:description" content="这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点">
+    
+        <link rel="alternate" type="application/atom+xml" title="We&#39;re here to put a dent in the universe" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avater.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Yaisn Yao</h5>
+          <a href="mailto:Yasin27878@163.com" title="Yasin27878@163.com" class="mail">Yasin27878@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                类别
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Yasin27878" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom">
+                <i class="icon icon-lg icon-link"></i>
+                其他
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android消息机制知识点总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android消息机制知识点总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-13T08:07:36.000Z" itemprop="datePublished" class="page-time">
+  2019-03-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Android/">Android</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android消息机制-知识点总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">Android消息机制 知识点总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-ThreadLocal总结"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. ThreadLocal总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#用法简介"><span class="post-toc-number">1.1.0.1.</span> <span class="post-toc-text">用法简介</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-MessageQueue总结"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. MessageQueue总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Looper总结"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3.Looper总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-Handle总结"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4.Handle总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#消息的发送"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">消息的发送</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#消息的处理"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">消息的处理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-主线程的消息循环"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">5.主线程的消息循环</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Android消息机制 知识点总结" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android消息机制知识点总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-13 16:07:36" datetime="2019-03-13T08:07:36.000Z" itemprop="datePublished">2019-03-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Android/">Android</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点<br><a id="more"></a></p>
+<h1 id="Android消息机制-知识点总结"><a href="#Android消息机制-知识点总结" class="headerlink" title="Android消息机制 知识点总结"></a>Android消息机制 知识点总结</h1><h2 id="1-ThreadLocal总结"><a href="#1-ThreadLocal总结" class="headerlink" title="1. ThreadLocal总结"></a>1. ThreadLocal总结</h2><p>ThreadLocal是一个线程内部的数据存储类，通过它可以在指定的线程中存储数据；不同线程对应不同的值。</p>
+<h4 id="用法简介"><a href="#用法简介" class="headerlink" title="用法简介"></a>用法简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//创建</span><br><span class="line">ThreadLocal&lt;String&gt; mStringThreadLocal = new ThreadLocal&lt;&gt;();</span><br><span class="line">//set方法</span><br><span class="line">mStringThreadLocal.set(&quot;yasinyao.com&quot;);</span><br><span class="line">//get方法</span><br><span class="line">mStringThreadLocal.get();</span><br></pre></td></tr></table></figure>
+<p>总结：实际上ThreadLocal的值是放入了当前线程的一个ThreadLocalMap实例中，所以只能在本线程中访问，其他线程无法访问。</p>
+<p>注意：Android的ThreadLocal与Java实现略有不同，但是原理是一致的。</p>
+<h2 id="2-MessageQueue总结"><a href="#2-MessageQueue总结" class="headerlink" title="2. MessageQueue总结"></a>2. MessageQueue总结</h2><p>Android消息队列在Android中是指MessageQueue，MessageQueue主要包括插入（enqueueMessage方法）和读取（next方法）<br>消息队列是一个单链表来维护消息列表，便于删除和添加数据</p>
+<h2 id="3-Looper总结"><a href="#3-Looper总结" class="headerlink" title="3.Looper总结"></a>3.Looper总结</h2><p>Looper在消息机制中扮演消息循环的角色，他会不同的从MessageQueue中查看是否有新消息，有旧处理，否则就一直阻塞在那里<br>Looper通过Looper.prepare()方法来初始化Looper，通过Looper.loop()方法开始处理消息<br>在Activity的中因为会默认初始化mainLooper 执行过loop（）方法所以可以直接使用Looper</p>
+<ul>
+<li>Looper提供了quit和quitSafely来退出Looper<ul>
+<li>quit 是直接退出Looper</li>
+<li>quitSafely 是添加推出的标记，等待消息都处理完成后再安全的推出</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Handle总结"><a href="#4-Handle总结" class="headerlink" title="4.Handle总结"></a>4.Handle总结</h2><p>handle的工作主要是消息的发送和处理过程</p>
+<h3 id="消息的发送"><a href="#消息的发送" class="headerlink" title="消息的发送"></a>消息的发送</h3><ul>
+<li>send方法</li>
+<li>post方法<ul>
+<li>post的一系列方法最终都转化成send的一系列方法来实现的 </li>
+</ul>
+</li>
+</ul>
+<h3 id="消息的处理"><a href="#消息的处理" class="headerlink" title="消息的处理"></a>消息的处理</h3><ul>
+<li>核心方法dispatchMessage(Message msg)</li>
+<li>钩子方法handleMessage(Message msg)</li>
+</ul>
+<h2 id="5-主线程的消息循环"><a href="#5-主线程的消息循环" class="headerlink" title="5.主线程的消息循环"></a>5.主线程的消息循环</h2><p>Android的主线程就是ActivityThread，主线程的入口为main()方法。在main()中系统会通过Looper.perpareMainLooper()来创建主线程的Looper以及MessageQueue，并通过Looper.loop()来开启主线程消息循环</p>
+<ul>
+<li>Android中为什么主线程不会因为Looper.loop()的循环而卡死？<ul>
+<li>Looper上的阻塞，前提是没有输入事件，MsgQ为空，Looper空闲状态，线程进入阻塞，释放CPU执行权，等待唤醒。</li>
+<li>UI耗时导致卡死，前提是要有输入事件，MsgQ不为空，Looper正常轮询，线程并没有阻塞，但是该事件执行时间过长（5秒？），而且与此期间其他的事件（按键按下，屏幕点击..）都没办法处理（卡死），然后就ANR异常了</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-13T08:20:06.290Z" itemprop="dateUpdated">2019-03-13 16:20:06</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/03/13/Android消息机制 知识点总结/" target="_blank" rel="external">https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.jianshu.com/u/3e759a2c717f">
+            <img src="/img/avater.png" alt="Yaisn Yao">
+            Yaisn Yao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handler/">Handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&title=《Android消息机制知识点总结》 — We're here to put a dent in the universe&pic=https://www.jianshu.com/u/3e759a2c717f/img/avater.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&title=《Android消息机制知识点总结》 — We're here to put a dent in the universe&source=这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制知识点总结》 — We're here to put a dent in the universe&url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&via=https://www.jianshu.com/u/3e759a2c717f" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/17/java_lang_IllegalStateException/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">几个Exception分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Yaisn Yao &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&title=《Android消息机制知识点总结》 — We're here to put a dent in the universe&pic=https://www.jianshu.com/u/3e759a2c717f/img/avater.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&title=《Android消息机制知识点总结》 — We're here to put a dent in the universe&source=这边文章主要介绍Android的消息机制的几个组成部分以及重点要理解的点" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制知识点总结》 — We're here to put a dent in the universe&url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/&via=https://www.jianshu.com/u/3e759a2c717f" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://www.jianshu.com/u/3e759a2c717f/2019/03/13/Android消息机制 知识点总结/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'YasinYao的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

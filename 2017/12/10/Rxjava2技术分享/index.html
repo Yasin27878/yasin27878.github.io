@@ -202,10 +202,16 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>本文主要说我们为什么要升级Rxjava2，以及升级Rxjava2的好处<br><a id="more"></a></p>
-<h2 id="1-为什么要升级Rxjava2"><a href="#1-为什么要升级Rxjava2" class="headerlink" title="1. 为什么要升级Rxjava2"></a>1. 为什么要升级Rxjava2</h2><h4 id="1-兼容Reactive-Streams规范-官网"><a href="#1-兼容Reactive-Streams规范-官网" class="headerlink" title="1. 兼容Reactive Streams规范 官网"></a>1. 兼容Reactive Streams规范 <a href="https://github.com/reactive-streams/reactive-streams-jvm">官网</a></h4><pre><code>Reactive Streams 是一种为异步流处理提供非阻塞压力的标准。
+<h2 id="1-为什么要升级Rxjava2"><a href="#1-为什么要升级Rxjava2" class="headerlink" title="1. 为什么要升级Rxjava2"></a>1. 为什么要升级Rxjava2</h2><h4 id="1-兼容Reactive-Streams规范-官网"><a href="#1-兼容Reactive-Streams规范-官网" class="headerlink" title="1. 兼容Reactive Streams规范 官网"></a>1. 兼容Reactive Streams规范 <a href="https://github.com/reactive-streams/reactive-streams-jvm" target="_blank" rel="noopener">官网</a></h4><pre><code>Reactive Streams 是一种为异步流处理提供非阻塞压力的标准。
 </code></pre><h4 id="2-更好的处理BackPressure的情况—-Flowable"><a href="#2-更好的处理BackPressure的情况—-Flowable" class="headerlink" title="2. 更好的处理BackPressure的情况— Flowable"></a>2. 更好的处理BackPressure的情况— Flowable</h4><pre><code> 背压，即生产者的速度大于消费者的速度带来的问题
 使用Flowable我们需要定义它的事件处理策略(缓存,丢弃,报错)
-</code></pre><h4 id="3-拥有比Rxjava1更好的性能"><a href="#3-拥有比Rxjava1更好的性能" class="headerlink" title="3. 拥有比Rxjava1更好的性能"></a>3. 拥有比Rxjava1更好的<a href="https://github.com/akarnokd/akarnokd-misc/issues/2">性能</a></h4><p><img src="https://cloud.githubusercontent.com/assets/1269832/18634280/93a82d0a-7e80-11e6-9485-5496fc98483f.png" alt="image"></p>
+</code></pre><h4 id="3-拥有比Rxjava1更好的性能"><a href="#3-拥有比Rxjava1更好的性能" class="headerlink" title="3. 拥有比Rxjava1更好的性能"></a>3. 拥有比Rxjava1更好的<a href="https://github.com/akarnokd/akarnokd-misc/issues/2" target="_blank" rel="noopener">性能</a></h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cloud.githubusercontent.com/assets/1269832/18634280/93a82d0a-7e80-11e6-9485-5496fc98483f.png" alt="image" title="">
+                </div>
+                <div class="image-caption">image</div>
+            </figure>
 <h2 id="2-Rxjava1到Rxjava2有哪些变化"><a href="#2-Rxjava1到Rxjava2有哪些变化" class="headerlink" title="2 .Rxjava1到Rxjava2有哪些变化"></a>2 .Rxjava1到Rxjava2有哪些变化</h2><h4 id="1-Nulls"><a href="#1-Nulls" class="headerlink" title="1.Nulls"></a>1.Nulls</h4><pre><code>这是一个很大的变化，熟悉 RxJava 1.x 的童鞋一定都知道，1.x 是允许我们在发射事件的时候传入 null 值的
 ，但现在 2.x 不支持了，直接抛 NullPointerException 。
 </code></pre><h4 id="2-Observable-gt-Observable-Flowable"><a href="#2-Observable-gt-Observable-Flowable" class="headerlink" title="2. Observable-&gt;Observable,Flowable"></a>2. Observable-&gt;Observable,Flowable</h4><pre><code>1.)基本对比
@@ -268,7 +274,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="4-RxJava1-x-如何平滑升级到RxJava2-x？"><a href="#4-RxJava1-x-如何平滑升级到RxJava2-x？" class="headerlink" title="4.RxJava1.x 如何平滑升级到RxJava2.x？"></a>4.RxJava1.x 如何平滑升级到RxJava2.x？</h2><p>由于RxJava2.x变化较大无法直接升级，幸运的是，官方开发者提供了RxJava2Interop这个库，可以方便地将RxJava1.x升级到RxJava2.x，或者将RxJava2.x转回RxJava1.x。地址：<a href="https://github.com/akarnokd/RxJava2Interop">https://github.com/akarnokd/RxJava2Interop</a></p>
+<h2 id="4-RxJava1-x-如何平滑升级到RxJava2-x？"><a href="#4-RxJava1-x-如何平滑升级到RxJava2-x？" class="headerlink" title="4.RxJava1.x 如何平滑升级到RxJava2.x？"></a>4.RxJava1.x 如何平滑升级到RxJava2.x？</h2><p>由于RxJava2.x变化较大无法直接升级，幸运的是，官方开发者提供了RxJava2Interop这个库，可以方便地将RxJava1.x升级到RxJava2.x，或者将RxJava2.x转回RxJava1.x。地址：<a href="https://github.com/akarnokd/RxJava2Interop" target="_blank" rel="noopener">https://github.com/akarnokd/RxJava2Interop</a></p>
 
         </div>
 

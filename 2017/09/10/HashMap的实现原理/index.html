@@ -204,7 +204,13 @@
             <p>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。<br><a id="more"></a></p>
 <h1 id="HashMap的实现原理"><a href="#HashMap的实现原理" class="headerlink" title="HashMap的实现原理"></a>HashMap的实现原理</h1><h4 id="1-HashMap概述"><a href="#1-HashMap概述" class="headerlink" title="1.HashMap概述"></a>1.HashMap概述</h4><p>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。</p>
 <hr>
-<h4 id="2-HashMap的数据结构"><a href="#2-HashMap的数据结构" class="headerlink" title="2.HashMap的数据结构"></a>2.HashMap的数据结构</h4><p>在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。<br><img src="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg" alt="image"></p>
+<h4 id="2-HashMap的数据结构"><a href="#2-HashMap的数据结构" class="headerlink" title="2.HashMap的数据结构"></a>2.HashMap的数据结构</h4><p>在 Java 编程语言中，最基本的结构就是两种，一个是数组，另外一个是指针（引用），HashMap 就是通过这两个数据结构进行实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg" alt="image" title="">
+                </div>
+                <div class="image-caption">image</div>
+            </figure></p>
 <p>每个元素存储的是一个链表的头结点。那么这些元素是按照什么样的规则存储到数组中呢? 一般情况是通过hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到。比如上述哈希表中，12%16=12,28%16=12,108%16=12,140%16=12。所以12、28、108以及140都存储在数组下标为12的位置。</p>
 <p>　　HashMap其实也是一个线性的数组实现的,所以可以理解为其存储数据的容器就是一个线性数组。这可能让我们很不解，一个线性的数组怎么实现按键值对来存取数据呢？这里HashMap有做一些处理。</p>
 <p>　　首先HashMap里面实现一个静态内部类Entry，其重要的属性有 key , value, next，从属性key,value我们就能很明显的看出来Entry就是HashMap键值对实现的一个基础bean，我们上面说到HashMap的基础就是一个线性数组，这个数组就是Entry[]，Map里面的内容都保存在Entry[]里面。</p>

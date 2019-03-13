@@ -211,7 +211,25 @@
 </ul>
 <hr>
 <p>##正文</p>
-<h2 id="一-先看结果"><a href="#一-先看结果" class="headerlink" title="一.先看结果"></a>一.先看结果</h2><p><strong>1.先看不显示的效果图</strong><br><img src="http://img.blog.csdn.net/20160618160118501" alt="这是预览的 选中值却没有显示出来的效果"><br><img src="http://img.blog.csdn.net/20160618160429412" alt="这是预览的 选中值却没有显示出来的效果"><br><strong>2.显示正常的效果图</strong><br><img src="http://img.blog.csdn.net/20160618160709336" alt="这里写图片描述"></p>
+<h2 id="一-先看结果"><a href="#一-先看结果" class="headerlink" title="一.先看结果"></a>一.先看结果</h2><p><strong>1.先看不显示的效果图</strong><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160618160118501" alt="这是预览的 选中值却没有显示出来的效果" title="">
+                </div>
+                <div class="image-caption">这是预览的 选中值却没有显示出来的效果</div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160618160429412" alt="这是预览的 选中值却没有显示出来的效果" title="">
+                </div>
+                <div class="image-caption">这是预览的 选中值却没有显示出来的效果</div>
+            </figure><br><strong>2.显示正常的效果图</strong><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160618160709336" alt="这里写图片描述" title="">
+                </div>
+                <div class="image-caption">这里写图片描述</div>
+            </figure></p>
 <h2 id="二-分析及过程"><a href="#二-分析及过程" class="headerlink" title="二.分析及过程"></a>二.分析及过程</h2><p><strong>1.分析</strong><br>考虑到其他手机能显示手上这部小米4不显示,可能是因为Spinner分配的空间不够显示,然后我尝试将三个Spinner宽度上1:1:1 的宽度全都改为wrap_content,并且将小标题的”配送地址”的宽度也调小了,最终测试的结果是 他们任然不显示.只有最后一个Spinner显示了,But  只显示了一个字,后面都是…..  这样来看的话说明我们用系统的android.R.layout.simple_spinner_item 样式的问题了,这个Spinner被miui修改过了 ,它要<strong>占用更大的空间才能显示</strong>,那么问题来了,我们只有这么大的空间,怎么处理呢?<br>答案就是 <strong>使用自定义的样式</strong>,<strong>把Spinner内部负责显示的TextView的TextSize调小</strong></p>
 <p><strong>文件: R.layout.simple_spinner_item</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;TextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          android:id=&quot;@android:id/text1&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:ellipsize=&quot;marquee&quot;</span><br><span class="line">          android:singleLine=&quot;true&quot;</span><br><span class="line">          android:textAlignment=&quot;inherit&quot;</span><br><span class="line">          android:textSize=&quot;16sp&quot;/&gt;</span><br></pre></td></tr></table></figure>

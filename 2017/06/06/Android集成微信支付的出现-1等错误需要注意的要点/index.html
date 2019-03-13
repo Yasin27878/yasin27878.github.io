@@ -223,8 +223,21 @@
 </ul>
 <p><strong>2.APPID错误</strong></p>
 <ul>
-<li>(1)APPID是在open.weixin.qq.com上创建的应用,可以通过 点击管理中心–&gt;应用详情 来查看APPID<br><img src="http://img.blog.csdn.net/20160709215900458" alt="这里写图片描述"></li>
-<li>(2)创建APP时候上传的证书与现在使用的不一致.商户在微信开放平台申请开发应用后，微信开放平台会生成APP的唯一标识APPID。由于需要保证支付安全，需要在开放平台绑定商户应用包名和应用签名，设置好后才能正常发起支付。设置界面在【开放平台】中的栏目【 管理中心 –&gt; 修改应用 –&gt; 修改开发信息】里面<br><img src="http://img.blog.csdn.net/20160709220847731" alt="这里写图片描述"><br>应用包名：是在APP项目配置文件AndroidManifest.xml中声明的package值，例如DEMO中的package=”com.nmm.paydemo”。<br>应用签名：根据项目的应用包名和编译使用的keystore，可由签名工具生成一个32位的md5串，在调试的手机上安装签名工具后，运行可生成应用签名串，如图8.9所示，绿色串即应用签名。<a href="https://open.weixin.qq.com/zh_CN/htmledition/res/dev/download/sdk/Gen_Signature_Android.apk" target="_blank" rel="noopener">签名工具下载地址</a></li>
+<li>(1)APPID是在open.weixin.qq.com上创建的应用,可以通过 点击管理中心–&gt;应用详情 来查看APPID<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160709215900458" alt="这里写图片描述" title="">
+                </div>
+                <div class="image-caption">这里写图片描述</div>
+            </figure></li>
+<li>(2)创建APP时候上传的证书与现在使用的不一致.商户在微信开放平台申请开发应用后，微信开放平台会生成APP的唯一标识APPID。由于需要保证支付安全，需要在开放平台绑定商户应用包名和应用签名，设置好后才能正常发起支付。设置界面在【开放平台】中的栏目【 管理中心 –&gt; 修改应用 –&gt; 修改开发信息】里面<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img.blog.csdn.net/20160709220847731" alt="这里写图片描述" title="">
+                </div>
+                <div class="image-caption">这里写图片描述</div>
+            </figure>
+应用包名：是在APP项目配置文件AndroidManifest.xml中声明的package值，例如DEMO中的package=”com.nmm.paydemo”。<br>应用签名：根据项目的应用包名和编译使用的keystore，可由签名工具生成一个32位的md5串，在调试的手机上安装签名工具后，运行可生成应用签名串，如图8.9所示，绿色串即应用签名。<a href="https://open.weixin.qq.com/zh_CN/htmledition/res/dev/download/sdk/Gen_Signature_Android.apk" target="_blank" rel="noopener">签名工具下载地址</a></li>
 </ul>
 <p>对比查看应用签名是否一致<strong>,特别注意,一般上传都是使用release版本的key所以在测试的时候就需要使用签名版的apk,普通的debug版本key是不一致的</strong></p>
 <p>#三.结束<br><strong>文档主要参考网络和自己的使用过程,有什么错误的地方欢迎指正</strong></p>
