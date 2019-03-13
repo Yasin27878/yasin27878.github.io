@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="We&#39;re here to put a dent in the universe">
 <meta property="og:description" content="本文主要说6条给React开发者的专业建议,让你写出更好的React代码">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-24T10:11:05.395Z">
+<meta property="og:updated_time" content="2019-03-13T09:02:22.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="6条给React开发者的专业建议">
 <meta name="twitter:description" content="本文主要说6条给React开发者的专业建议,让你写出更好的React代码">
@@ -174,8 +174,8 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-使用方法组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 使用方法组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#使用这种方法的好处"><span class="post-toc-number">1.0.0.1.</span> <span class="post-toc-text">使用这种方法的好处:</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number"></span> <span class="post-toc-text">Hello,{this.props.name}</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-使用必要的React-开发工具来帮助我们"><span class="post-toc-number">1.</span> <span class="post-toc-text">6.使用必要的React 开发工具来帮助我们</span></a></li></ol>
-        </li></nav>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-使用方法组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 使用方法组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#使用这种方法的好处"><span class="post-toc-number">1.0.0.1.</span> <span class="post-toc-text">使用这种方法的好处:</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-尽可能的让你的组件小巧"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.尽可能的让你的组件小巧</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用这种方法的好处-1"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">使用这种方法的好处:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#例如-下面我们把个人中心资料模块进行细分"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">例如:下面我们把个人中心资料模块进行细分</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-了解并知道怎样处理’this’"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.了解并知道怎样处理’this’</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-在render中绑定"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1. 在render中绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-在render中使用箭头函数"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2. 在render中使用箭头函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-在构造方法中绑定"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3. 在构造方法中绑定</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-在属性中使用箭头函数"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">4. 在属性中使用箭头函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-在更新状态时使用方法而不是对象"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.在更新状态时使用方法而不是对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-开发lib时使用’prop-types’"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.开发lib时使用’prop-types’</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-使用必要的React-开发工具来帮助我们"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.使用必要的React 开发工具来帮助我们</span></a></li>
+        </nav>
     </aside>
 
 
@@ -207,32 +207,25 @@
 <li>更容易理解,</li>
 <li>不用处理状态机,</li>
 <li>测试简单,</li>
-<li>不需要绑定<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- 更容易提取较小的组件</span><br><span class="line"></span><br><span class="line">## 2.尽可能的让你的组件小巧</span><br><span class="line">####  使用这种方法的好处:</span><br><span class="line">- 便于阅读</span><br><span class="line">- 便于测试</span><br><span class="line">- 方便维护</span><br><span class="line">- 方便复用</span><br><span class="line">####  例如:下面我们把个人中心资料模块进行细分</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">个人用户信息部分被拆分</span><br></pre></td></tr></table></figure></li>
+<li>不需要绑定this,</li>
+<li>更容易提取较小的组件</li>
 </ul>
-<p>class Comment extends Compont{<br>    render()<br>     <div classname="Comment"><br>        <userinfo user="{this.props.user}/"><br>        <div classname="Comment-text"><br>        {this.props.text}<br>        </div><br>        <div classname="comment-text"><br>        {formatDate(this.props.date)}<br>        </div><br>    </userinfo></div><br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在用户信息部分中,头像部分也被拆分成更小的组件</span><br></pre></td></tr></table></figure></p>
-<p>function UserInfo(props){<br>    renturn (<br>    <div classname="UserInfo"><br>        <avatar user="{props.name}/"><br>        <div classnmae="UserInfo-name"><br>        {props.user.name}<br>        </div><br>    </avatar></div><br>    );<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">个人头像部分</span><br></pre></td></tr></table></figure></p>
-<p>function Avatar(props){<br>    return(<br>    &lt;img className=’Avatar’<br>        src={props.user.avatarUrl}<br>        alt={props.user.name}<br>    <br>    );<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 3.了解并知道怎样处理&apos;this&apos;</span><br><span class="line"></span><br><span class="line">### 1. 在render中绑定</span><br><span class="line"></span><br><span class="line">这种方式虽然简单明了但是有性能问题,因为点击后会调用一个新的函数,每次这个组件都要重新渲染</span><br></pre></td></tr></table></figure></p>
-<p>class HelloWorld extend component{<br>    contructor(props){<br>        super(props);<br>        this.state={message:’Hi’};<br>    }<br>    logMessage(){<br>        console.log(this.state.message);<br>    }<br>    render(){<br>        return {<br>            <input type="button" value="Log" onclick="{this.logMessage.bind(this)}/"><br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### 2. 在render中使用箭头函数</span><br><span class="line"> </span><br><span class="line"> 这种方式和方法1同样会有相同的性能问题</span><br></pre></td></tr></table></figure></p>
-<p>class HelloWorld extend component{<br>    contructor(props){<br>        super(props);<br>        this.state={message:’Hi’};<br>    }<br>    logMessage(){<br>        console.log(this.state.message);<br>    }<br>    render(){<br>        return {<br>            <input type="button" value="Log" onclick="{()=">this.logMessage}/&gt;<br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### 3. 在构造方法中绑定</span><br><span class="line"></span><br><span class="line"> 这种方式需要记得使用super(props)</span><br></pre></td></tr></table></figure></p>
-<p>class HelloWorld extend component{<br>    contructor(props){<br>        super(props);<br>        this.state={message:’Hi’};<br>        this.logMessage= this.logMessage.bind(this)<br>    }<br>    logMessage(){<br>        console.log(this.state.message);<br>    }<br>    render(){<br>        return {<br>            <input type="button" value="Log" onclick="{this.logMessage}/"><br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### 4. 在属性中使用箭头函数</span><br><span class="line"> </span><br><span class="line">有方法1和2的性能问题</span><br></pre></td></tr></table></figure></p>
-<p>class HelloWorld extend component{</p>
-<pre><code>this.state={message:&apos;Hi&apos;};
-
-logMessage=()=&gt;{
-    console.log(this.state.message);
-}
-render(){
-    return {
-        &lt;input type=&apos;button&apos; value=&apos;Log&apos; onClick={this.logMessage}/&gt;
-    }
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 4.在更新状态时使用方法而不是对象</span><br><span class="line">user:</span><br></pre></td></tr></table></figure></p>
-<p>this.setState((prevState.props)=&gt;{<br>    renturn {correctData:!prevState.correctData}<br>});<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">not</span><br></pre></td></tr></table></figure></p>
-<p>this.setState({correctData:!this.state.correctData});<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 5.开发lib时使用&apos;prop-types&apos;</span><br></pre></td></tr></table></figure></p>
-<p>import PropTypes from ‘pros-types’;</p>
-<p>class Welcome extends Component{<br>    render(){<br>        return </p><h1>Hello,{this.props.name}</h1><p></p>
-<pre><code>}
-</code></pre><p>}<br>Welcome.propTypes={<br>    name:ProsTypes.string.isRequired<br>}<br><code>`</code></p>
+<h2 id="2-尽可能的让你的组件小巧"><a href="#2-尽可能的让你的组件小巧" class="headerlink" title="2.尽可能的让你的组件小巧"></a>2.尽可能的让你的组件小巧</h2><h4 id="使用这种方法的好处-1"><a href="#使用这种方法的好处-1" class="headerlink" title="使用这种方法的好处:"></a>使用这种方法的好处:</h4><ul>
+<li>便于阅读</li>
+<li>便于测试</li>
+<li>方便维护</li>
+<li>方便复用<h4 id="例如-下面我们把个人中心资料模块进行细分"><a href="#例如-下面我们把个人中心资料模块进行细分" class="headerlink" title="例如:下面我们把个人中心资料模块进行细分"></a>例如:下面我们把个人中心资料模块进行细分</h4></li>
+</ul>
+<p>个人用户信息部分被拆分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Comment extends Compont&#123;</span><br><span class="line">    render()</span><br><span class="line">     &lt;div className=&quot;Comment&quot;&gt;</span><br><span class="line">        &lt;UserInfo user=&#123;this.props.user&#125;/&gt;</span><br><span class="line">        &lt;div className=&apos;Comment-text&apos;&gt;</span><br><span class="line">        &#123;this.props.text&#125;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div className=&quot;comment-text&quot;&gt;</span><br><span class="line">        &#123;formatDate(this.props.date)&#125;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在用户信息部分中,头像部分也被拆分成更小的组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function UserInfo(props)&#123;</span><br><span class="line">    renturn (</span><br><span class="line">    &lt;div className=&quot;UserInfo&quot;&gt;</span><br><span class="line">        &lt;Avatar user=&#123;props.name&#125;/&gt;</span><br><span class="line">        &lt;div classNmae=&apos;UserInfo-name&apos;&gt;</span><br><span class="line">        &#123;props.user.name&#125;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>个人头像部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Avatar(props)&#123;</span><br><span class="line">    return(</span><br><span class="line">    &lt;img className=&apos;Avatar&apos;</span><br><span class="line">        src=&#123;props.user.avatarUrl&#125;</span><br><span class="line">        alt=&#123;props.user.name&#125;</span><br><span class="line">    &lt;/img&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-了解并知道怎样处理’this’"><a href="#3-了解并知道怎样处理’this’" class="headerlink" title="3.了解并知道怎样处理’this’"></a>3.了解并知道怎样处理’this’</h2><h3 id="1-在render中绑定"><a href="#1-在render中绑定" class="headerlink" title="1. 在render中绑定"></a>1. 在render中绑定</h3><p>这种方式虽然简单明了但是有性能问题,因为点击后会调用一个新的函数,每次这个组件都要重新渲染<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class HelloWorld extend component&#123;</span><br><span class="line">    contructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state=&#123;message:&apos;Hi&apos;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    logMessage()&#123;</span><br><span class="line">        console.log(this.state.message);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            &lt;input type=&apos;button&apos; value=&apos;Log&apos; onClick=&#123;this.logMessage.bind(this)&#125;/&gt;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-在render中使用箭头函数"><a href="#2-在render中使用箭头函数" class="headerlink" title="2. 在render中使用箭头函数"></a>2. 在render中使用箭头函数</h3><p> 这种方式和方法1同样会有相同的性能问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class HelloWorld extend component&#123;</span><br><span class="line">    contructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state=&#123;message:&apos;Hi&apos;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    logMessage()&#123;</span><br><span class="line">        console.log(this.state.message);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            &lt;input type=&apos;button&apos; value=&apos;Log&apos; onClick=&#123;()=&gt;this.logMessage&#125;/&gt;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-在构造方法中绑定"><a href="#3-在构造方法中绑定" class="headerlink" title="3. 在构造方法中绑定"></a>3. 在构造方法中绑定</h3><p> 这种方式需要记得使用super(props)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class HelloWorld extend component&#123;</span><br><span class="line">    contructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state=&#123;message:&apos;Hi&apos;&#125;;</span><br><span class="line">        this.logMessage= this.logMessage.bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    logMessage()&#123;</span><br><span class="line">        console.log(this.state.message);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            &lt;input type=&apos;button&apos; value=&apos;Log&apos; onClick=&#123;this.logMessage&#125;/&gt;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-在属性中使用箭头函数"><a href="#4-在属性中使用箭头函数" class="headerlink" title="4. 在属性中使用箭头函数"></a>4. 在属性中使用箭头函数</h3><p>有方法1和2的性能问题<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class HelloWorld extend component&#123;</span><br><span class="line">    </span><br><span class="line">    this.state=&#123;message:&apos;Hi&apos;&#125;;</span><br><span class="line">     </span><br><span class="line">    logMessage=()=&gt;&#123;</span><br><span class="line">        console.log(this.state.message);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            &lt;input type=&apos;button&apos; value=&apos;Log&apos; onClick=&#123;this.logMessage&#125;/&gt;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-在更新状态时使用方法而不是对象"><a href="#4-在更新状态时使用方法而不是对象" class="headerlink" title="4.在更新状态时使用方法而不是对象"></a>4.在更新状态时使用方法而不是对象</h2><p>user:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.setState((prevState.props)=&gt;&#123;</span><br><span class="line">    renturn &#123;correctData:!prevState.correctData&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>not<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123;correctData:!this.state.correctData&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-开发lib时使用’prop-types’"><a href="#5-开发lib时使用’prop-types’" class="headerlink" title="5.开发lib时使用’prop-types’"></a>5.开发lib时使用’prop-types’</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import PropTypes from &apos;pros-types&apos;;</span><br><span class="line"></span><br><span class="line">class Welcome extends Component&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &lt;h1&gt;Hello,&#123;this.props.name&#125;&lt;/h1&gt;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Welcome.propTypes=&#123;</span><br><span class="line">    name:ProsTypes.string.isRequired</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="6-使用必要的React-开发工具来帮助我们"><a href="#6-使用必要的React-开发工具来帮助我们" class="headerlink" title="6.使用必要的React 开发工具来帮助我们"></a>6.使用必要的React 开发工具来帮助我们</h2>
         </div>
 
@@ -240,10 +233,6 @@ render(){
     
     <div class="content">
         
-<span class="post-time">
-    最后更新时间：<time datetime="2019-01-24T10:11:05.395Z" itemprop="dateUpdated">2019-01-24 18:11:05</time>
-</span><br>
-
 
         
         这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/09/07/6条给React开发者的专业建议/" target="_blank" rel="external">https://www.jianshu.com/u/3e759a2c717f/2018/09/07/6条给React开发者的专业建议/</a>
@@ -347,6 +336,15 @@ render(){
     
 
 
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
 
@@ -368,17 +366,17 @@ render(){
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <h3 class="reward-title">
         <i class="icon icon-quote-left"></i>
-        谢谢大爷~
+        感谢支持🙏
         <i class="icon icon-quote-right"></i>
     </h3>
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+            <img id="rewardCode" src="/img/wechat.jpeg" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpeg" data-alipay="/img/alipay.jpeg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -394,33 +392,6 @@ render(){
 </div>
 
         <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style="display:none">
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style="display:none">
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>Yaisn Yao &copy; 2015 - 2019</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
 </footer>
 
     </main>

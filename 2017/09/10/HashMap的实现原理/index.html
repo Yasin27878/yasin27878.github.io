@@ -30,7 +30,7 @@
 <meta property="og:description" content="HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pic002.cnblogs.com/images/2012/80896/2012060316385671.jpg">
-<meta property="og:updated_time" content="2019-01-24T09:40:27.917Z">
+<meta property="og:updated_time" content="2019-03-13T08:46:48.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap的实现原理">
 <meta name="twitter:description" content="HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。">
@@ -216,12 +216,12 @@
 <p>　　首先HashMap里面实现一个静态内部类Entry，其重要的属性有 key , value, next，从属性key,value我们就能很明显的看出来Entry就是HashMap键值对实现的一个基础bean，我们上面说到HashMap的基础就是一个线性数组，这个数组就是Entry[]，Map里面的内容都保存在Entry[]里面。</p>
 <h2 id=""><a href="#" class="headerlink" title="　　"></a>　　</h2><h4 id="3-HashMap的初始化过程"><a href="#3-HashMap的初始化过程" class="headerlink" title="3. HashMap的初始化过程"></a>3. HashMap的初始化过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　    public HashMap(Map&lt;? extends K, ? extends V&gt; m) &#123;</span><br><span class="line">    this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1,</span><br><span class="line">                  DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR);</span><br><span class="line">    inflateTable(threshold);</span><br><span class="line"></span><br><span class="line">    putAllForCreate(m);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>DEFAULT_LOAD_FACTOR :</strong>  负载因子的默认值0.75  表示数据填充的临界值,即数据达到总数据的75%时就开始准备扩容了.</p>
-<p><strong>DEFAULT_INITIAL_CAPACITY :</strong> 默认传入Map中的数据默认值为4<br>从上面看出 现实调用自己的构造方法,然后创建存储的Table(实际是数组),最后把值添加到创建的table中</p>
+<p><strong>DEFAULT_INITIAL_CAPACITY :</strong> 数据默认值为1&lt;&lt;4 (也就是16)<br>从上面看出 现实调用自己的构造方法,然后创建存储的Table(实际是数组),最后把值添加到创建的table中</p>
 <ul>
 <li><h5 id="this-var1-var2-实际调用的构造方法"><a href="#this-var1-var2-实际调用的构造方法" class="headerlink" title="this(var1,var2)实际调用的构造方法"></a>this(var1,var2)实际调用的构造方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the specified initial</span><br><span class="line"> * capacity and load factor.</span><br><span class="line"> *</span><br><span class="line"> * @param  initialCapacity the initial capacity</span><br><span class="line"> * @param  loadFactor      the load factor</span><br><span class="line"> * @throws IllegalArgumentException if the initial capacity is negative</span><br><span class="line"> *         or the load factor is nonpositive</span><br><span class="line"> */</span><br><span class="line">public HashMap(int initialCapacity, float loadFactor) &#123;</span><br><span class="line">    if (initialCapacity &lt; 0)</span><br><span class="line">        throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    if (initialCapacity &gt; MAXIMUM_CAPACITY) &#123;</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    &#125; else if (initialCapacity &lt; DEFAULT_INITIAL_CAPACITY) &#123;</span><br><span class="line">        initialCapacity = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))</span><br><span class="line">        throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    threshold = initialCapacity;</span><br><span class="line">    init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>initialCapacity :</strong> ==即初始化申请空间的值,不等于Map实际初始化的内部数组的长度(稍后解释为什么)==,若不填写默认是DEFAULT_INITIAL_CAPACITY也就是4<br>initialCapacity的最大值为1 &lt;&lt; 30 也就是2^30次方<br>initialCapacity的最小值为DEFAULT_INITIAL_CAPACITY也就是4</p>
+<p><strong>initialCapacity :</strong> ==即初始化申请空间的值,不等于Map实际初始化的内部数组的长度(稍后解释为什么)==,若不填写默认是使用DEFAULT_INITIAL_CAPACITY也就是16<br>initialCapacity的最大值为1 &lt;&lt; 30 也就是2^30次方</p>
 <p><strong>loadFactor :</strong> 负载因子的初始化值,若不填写默认为DEFAULT_LOAD_FACTOR也就是0.75</p>
 <p><strong>threshold :</strong> 下次扩容时的申请空间值</p>
 <ul>
@@ -294,10 +294,6 @@
     
     <div class="content">
         
-<span class="post-time">
-    最后更新时间：<time datetime="2019-01-24T09:40:27.917Z" itemprop="dateUpdated">2019-01-24 17:40:27</time>
-</span><br>
-
 
         
         这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2017/09/10/HashMap的实现原理/" target="_blank" rel="external">https://www.jianshu.com/u/3e759a2c717f/2017/09/10/HashMap的实现原理/</a>
@@ -401,6 +397,15 @@
     
 
 
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
 
@@ -422,17 +427,17 @@
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <h3 class="reward-title">
         <i class="icon icon-quote-left"></i>
-        谢谢大爷~
+        感谢支持🙏
         <i class="icon icon-quote-right"></i>
     </h3>
     <div class="reward-content">
         
         <div class="reward-code">
-            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+            <img id="rewardCode" src="/img/wechat.jpeg" alt="打赏二维码">
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpeg" data-alipay="/img/alipay.jpeg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -448,33 +453,6 @@
 </div>
 
         <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style="display:none">
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style="display:none">
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>Yaisn Yao &copy; 2015 - 2019</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
 </footer>
 
     </main>
